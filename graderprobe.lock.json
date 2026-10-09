@@ -1,0 +1,561 @@
+{
+  "anchors": [
+    {
+      "profile_fingerprint": "0fb3ce2d2a3cf2fc6c289fec53e5bf862c31b990fcb979a79809b991c3f366a3",
+      "task_id": "alt-algorithm-reject",
+      "task_path": "corpus/tasks/alt-algorithm-reject/task.yaml"
+    },
+    {
+      "profile_fingerprint": "fd4dc5eee75b42e3d0ea89473c935a878b3e7a2d6728e9add597a604df4b1d06",
+      "task_id": "ambiguous-requirement",
+      "task_path": "corpus/tasks/ambiguous-requirement/task.yaml"
+    }
+  ],
+  "created_at": "2026-10-09T22:37:26Z",
+  "graderprobe_version": "0.8.0",
+  "lock_fingerprint": "sha256:93dedc3699345ea7b5dce0cebc06a58ab925332fe8c07efdc1df831acf7289e3",
+  "locked_commit": "f629405c784dbf42e1662a4900eb1caddff818e5",
+  "repository": ".",
+  "schema": "graderprobe.contract_lock.v1",
+  "task_inventory": [
+    {
+      "cohort_id": "sha256:65c6cbf5c675a953ef7b54c0a1dcac2e933f4c3b98dd4a3e652442180de22556",
+      "digest": "601342fd752162e68a126ec3fe1f9e1a3a6860306748160cf8366a0f213153bd",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "alt-algorithm-reject",
+      "path": "corpus/tasks/alt-algorithm-reject/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "1b85fcfd459d223c0e5b2531dc18f07a5af97d2572a5426d21a34d04460f7e9e"
+    },
+    {
+      "cohort_id": "sha256:606e30199100cd9473a7d9bdeaaad774a1c4870746751ae5bf3f0a7d7354d98c",
+      "digest": "cd08fd44c255274d7dc684954c4234f16289179b6db11d2da90f90021a56a5e2",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "ambiguous-requirement",
+      "path": "corpus/tasks/ambiguous-requirement/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "SEN-01"
+      ],
+      "probe_set_digest": "80e69bcd258ed2ce9c35d09eafea044c622fa1d55ab53aaeab64946ab81cf431"
+    },
+    {
+      "cohort_id": "sha256:2bc25545f0d2acd14fe459f20e6ba27104a9dd7798aa370bbb960874f21b3005",
+      "digest": "0cd2b15036aa356eca31794bdc73cecb16eb97456e3a8b9b448b75b088e1e95e",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "marker",
+        "working_dir": "."
+      },
+      "id": "broken-environment",
+      "path": "corpus/tasks/broken-environment/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "SEN-01"
+      ],
+      "probe_set_digest": "afa610905254f272318640b672ca4f908c1317f771a0b26f51eacbffb96fe250"
+    },
+    {
+      "cohort_id": "sha256:ebd5ed84149256e4c54cccdaa4f4eab89278c67fc4309b02aca51283a8a068bc",
+      "digest": "6d26c4720400c5359e553abbaf5fb22ec7fc56fc3ce74f98afef4002d6772c25",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "edge-case-blind",
+      "path": "corpus/tasks/edge-case-blind/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "1ac0c48b33b8fd67e9a2376a6b1b8f36ac687a44535bd88fad14629c372d205f"
+    },
+    {
+      "cohort_id": "sha256:5eb00d6947738cb4264f1500a726526c03488cf9b6b336c45453e6e4c71d49be",
+      "digest": "960cea118b09c533664edc1ecb6cd17e1cb520a26f67b0ca9db220b169643778",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "formatting-sensitive",
+      "path": "corpus/tasks/formatting-sensitive/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "c9d9e96f6541c646b5dda7309ed3d3c7eb788ec3c2bcab74830fc389e4a81289"
+    },
+    {
+      "cohort_id": "sha256:39b2227cd9b52ae55474f22107b37a888044832f9dedf3a8640a1756d097d6b8",
+      "digest": "c9409ca6c82743935bc1b29947265fa76e96217b1d45eb7b3da141964b690fb5",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "healthy-control",
+      "path": "corpus/tasks/healthy-control/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "INV-03",
+        "SEN-01",
+        "SEN-02",
+        "SEN-03"
+      ],
+      "probe_set_digest": "38f836301b9f94282a45d5beb7bbe2251a774c7ce9aeeecfad36a0be49f3c486"
+    },
+    {
+      "cohort_id": "sha256:aa673e71f9f0e5a01346fd029b0cd2fc0222342ae8e4be820c341e4fe45bde1b",
+      "digest": "2fe53a6a7c7b0518dcf111255516c593a2eb995fd16541a28dc71ebdce115e1b",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "implementation-specific-sort",
+      "path": "corpus/tasks/implementation-specific-sort/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "e21d7c1c1761a559d9702cd84718d4a1218dfc5c9f302ecbbb916147b01bed5b"
+    },
+    {
+      "cohort_id": "sha256:2f3412b8f56de13cd866653bb27c50133c5f3f39aec3ffee048b367b2fcf82c7",
+      "digest": "7b8306ae2a49ffb06761b51851614cff0d7d99f2381d0d9ba04b9ca6a101481f",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "insecure-accepted",
+      "path": "corpus/tasks/insecure-accepted/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "21ff0ba06cc961827aa4baaec3a9668aa326077e41261d10f5a9d6d192849164"
+    },
+    {
+      "cohort_id": "sha256:906b7ea78225c395045551b25073bb7bd8918c6eeef1ceeb49c3176e87aa4099",
+      "digest": "0eb3061c544bffd62332eacd834c56288e62d4ee4f7d1d44365bf63d3b861e11",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "misleading-nl",
+      "path": "corpus/tasks/misleading-nl/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "SEN-01"
+      ],
+      "probe_set_digest": "2078a551f63983902cc1db259db86ab90259c68b92e0bb8cf6f170aee89212fa"
+    },
+    {
+      "cohort_id": "sha256:b280fc7a53465a81428fe4346d1c7941a5215b2fee375fccfda8f5e87957e9dc",
+      "digest": "c0575315f230a8ec39026af6e1eed476a698b6347bb859dd0fdc5f647191862a",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "missing-required-behavior",
+      "path": "corpus/tasks/missing-required-behavior/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "62f47123f1948fc96c3585b299e9b6f6606ad89068f6a76d391a29db28e93e32"
+    },
+    {
+      "cohort_id": "sha256:ad7552fa6306f88560dbad450521baf89b2cdd525eea9ae25745f504aec4c5d4",
+      "digest": "d978686a37c2ef30e559ea3ee159e979b021a37cbceca57d5bca1ff6c5b29c8b",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "nondeterministic-eval",
+      "path": "corpus/tasks/nondeterministic-eval/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "SEN-01"
+      ],
+      "probe_set_digest": "a70453b76ea7d7b7f7121baf7b307cf9161596e94f0010c99e437968d120ff6d"
+    },
+    {
+      "cohort_id": "sha256:42972fa12502a7e51294758949aa666677335d452653cee7e01ef1e02f2ba64a",
+      "digest": "7506246580217415cc35365cebdb97f5320d102b0df1347a409ddf125b076ed3",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "over-strict-naming",
+      "path": "corpus/tasks/over-strict-naming/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "6944115f75070a9aa8d670fa4558e00de8746e1b500ff814d33929233075d6c3"
+    },
+    {
+      "cohort_id": "sha256:e95f615943cdb85a45c1ad994b17562570f78b82f144e9a41aeb9c645de6c94b",
+      "digest": "475ab52a3b60fcc773f5a65235607d02e13789fbbcb293b659fa513178304d08",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "refactor-rejected",
+      "path": "corpus/tasks/refactor-rejected/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "01575cb0d2b0e993edeac1d576ec25b8eb7e27ce5b10e03bf0a4c41e17f14a95"
+    },
+    {
+      "cohort_id": "sha256:b629d83a478b10e3aea873b75b25924fb18323669b634d567d2283f756ccf362",
+      "digest": "6d729aa9a678e6f14867658f1a628ca2b5aba362fbdcd139ad562d63d10c5644",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "under-constrained-auth",
+      "path": "corpus/tasks/under-constrained-auth/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "bbfd7db5394da54cfa77f7614ca19350da4e2811f0a649e8ad223b1941c75f8e"
+    },
+    {
+      "cohort_id": "sha256:97a06d3caf6e0ef15bceaaaea1219fd5a1d31604f4cc2eba9b4af0552554dbf0",
+      "digest": "0252565565d8cfbd620e68f3435555007cde6b88fe26d2fcbd14570765dee5c6",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "wrong-side-boundary",
+      "path": "corpus/tasks/wrong-side-boundary/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "0f561c54942b6b4f70a9e3b46c890e71f46e4189663da115fba3772e61cb22f6"
+    },
+    {
+      "cohort_id": "sha256:6b0759edf60e3458f154230854b7005e4463bf5e85b367a7ea0b6ac3f21d2795",
+      "digest": "8957336d3a7fa320f3bc4909daf9baf1b6f67939c6586d01888cd256e37fccb2",
+      "evaluator_contract": {
+        "backend": "process",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "container_image": null,
+        "fail_exit_codes": [
+          1
+        ],
+        "inconclusive_exit_codes": [
+          2
+        ],
+        "network": "unrestricted",
+        "pass_exit_codes": [
+          0
+        ],
+        "timeout_seconds": 6.0,
+        "verdict_protocol": "exit_code",
+        "working_dir": "."
+      },
+      "id": "wrong-state-transition",
+      "path": "corpus/tasks/wrong-state-transition/task.yaml",
+      "probe_ids": [
+        "INV-01",
+        "INV-02",
+        "SEN-01",
+        "SEN-02"
+      ],
+      "probe_set_digest": "db8b1f935958ed9d2c1f15b46c21231a90aae01d257cc1922e839c676223f504"
+    }
+  ],
+  "task_root": "corpus/tasks"
+}
