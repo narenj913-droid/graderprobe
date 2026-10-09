@@ -1,0 +1,10 @@
+{
+  "schema": "graderprobe.frozen_cohort.v1",
+  "anchors": [
+    {
+      "task": "examples/frozen-cohort/tiny/task.yaml",
+      "candidate": "examples/frozen-cohort/tiny/solution.py",
+      "label": "positive-anchor"
+    }
+  ]
+}

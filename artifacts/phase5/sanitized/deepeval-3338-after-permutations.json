@@ -1,0 +1,20 @@
+{
+  "label": "pr_3339_head",
+  "checkout_dir": "<TEMP>\\graderprobe-deepeval-3338-validation\\after",
+  "commit_sha": "e24bff266a4fc2ab5046c18e8348f130c7d5625f",
+  "timestamp_iso": "2026-10-09T11:15:08.689437+00:00",
+  "measurements": {
+    "score_expected_called": 0.6666666666666666,
+    "score_reversed_expected_called": 0.6666666666666666,
+    "score_expected_reversed_called": 0.6666666666666666,
+    "score_reversed_expected_reversed_called": 0.6666666666666666
+  },
+  "all_scores": [
+    0.6666666666666666,
+    0.6666666666666666,
+    0.6666666666666666,
+    0.6666666666666666
+  ],
+  "is_order_invariant": true,
+  "max_score_diff": 0.0
+}

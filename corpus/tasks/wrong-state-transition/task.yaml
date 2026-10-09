@@ -1,0 +1,41 @@
+id: wrong-state-transition
+title: Illegal order transition accepted
+failure_mode: incorrect_state_transition_accepted
+description: |
+  An order starts pending. Allowed transitions are pending->paid, paid->shipped,
+  shipped->delivered. All other transitions raise ValueError.
+requirements:
+  - Enforce the allowed graph.
+  - transition(state, action) returns the next state.
+implementation_freedom:
+  - Table or if/elif are valid.
+failure_conditions:
+  - pending->shipped skipping payment.
+oracle:
+  reference: solution.py
+  expected_behavior: strict state graph
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/skip_pay.py
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Table-driven transitions
+      transform: {kind: replace_file, source: alternatives/table.py}
+    - id: INV-02
+      description: Rename mapping
+      transform: {kind: replace_file, source: alternatives/renamed.py}
+  sensitivity:
+    - id: SEN-01
+      description: Allow pending to skip to shipped
+      transform: {kind: replace_file, source: alternatives/skip_pay.py}
+    - id: SEN-02
+      description: Allow any transition
+      transform: {kind: replace_file, source: alternatives/any.py}
+provenance: {version: "0.1.0"}

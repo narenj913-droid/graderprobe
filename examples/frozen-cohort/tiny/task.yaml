@@ -1,0 +1,31 @@
+id: frozen-tiny
+title: Frozen cohort tiny task
+description: Return one from a tiny pure function.
+requirements:
+  - return one
+constraints: []
+implementation_freedom:
+  - any implementation that returns one
+failure_conditions:
+  - return anything other than one
+artifacts:
+  - path: solution.py
+    role: candidate
+oracle:
+  reference: solution.py
+  expected_behavior: return one
+  expected_baseline_verdict: PASS
+evaluator:
+  command: [python, evaluator.py]
+  timeout_seconds: 3
+probes:
+  invariance:
+    - id: inv-comment
+      description: Add a harmless comment.
+      transform: {kind: insert_comments, comment: noop}
+  sensitivity:
+    - id: sen-zero
+      description: Replace the required literal.
+      transform: {kind: replace_literal, from: 1, to: 0}
+provenance:
+  version: "1"

@@ -1,0 +1,30 @@
+id: nondeterministic-eval
+title: Evaluator depends on harness metadata
+failure_mode: nondeterministic_evaluator
+description: |
+  identity(x) returns x. The evaluator should only look at that behavior.
+requirements:
+  - identity(x) == x for integers.
+implementation_freedom:
+  - Trivial.
+failure_conditions:
+  - Returning a different value.
+baseline_repeats: 2
+oracle:
+  reference: solution.py
+  expected_behavior: identity
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/plus_one.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Comment only
+      transform: {kind: insert_comments, comment: "id"}
+  sensitivity:
+    - id: SEN-01
+      description: Add one
+      transform: {kind: replace_file, source: alternatives/plus_one.py}
+provenance: {version: "0.1.0"}

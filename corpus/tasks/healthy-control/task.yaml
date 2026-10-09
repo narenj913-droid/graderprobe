@@ -1,0 +1,46 @@
+id: healthy-control
+title: Well-specified even-sum grader
+failure_mode: none
+description: |
+  sum_evens(values) returns the sum of even integers. Empty lists return 0.
+requirements:
+  - Sum even integers only.
+  - Empty list returns 0.
+implementation_freedom:
+  - Names, loops, and comprehensions are free.
+failure_conditions:
+  - Including odds; crashing on empty.
+oracle:
+  reference: solution.py
+  expected_behavior: sum of evens
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/odds.py
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Rename accumulator
+      transform: {kind: replace_file, source: alternatives/renamed.py}
+    - id: INV-02
+      description: Comprehension
+      transform: {kind: replace_file, source: alternatives/comp.py}
+    - id: INV-03
+      description: Helper extraction
+      transform: {kind: replace_file, source: alternatives/helper.py}
+  sensitivity:
+    - id: SEN-01
+      description: Include odds
+      transform: {kind: replace_file, source: alternatives/odds.py}
+    - id: SEN-02
+      description: Off-by-one even test
+      transform: {kind: replace_file, source: alternatives/off_by_one.py}
+    - id: SEN-03
+      description: Constant zero
+      transform: {kind: replace_file, source: alternatives/zero.py}
+provenance: {version: "0.1.0"}

@@ -1,0 +1,47 @@
+id: inspect-ai-4721-model-graded-panel-order
+title: Inspect AI model-graded panel order invariance
+failure_mode: order-dependent panel reduction after a grader parse failure
+description: |
+  Faithful local reproduction of the behavior documented in Inspect AI issue #4721.
+  A three-grader panel contains one non-voting/parse-failed grader. The evaluator's
+  mode reduction ignores the non-voter and resolves an even tie using insertion order.
+  Reordering the same three grader outputs is semantically invariant, but the evaluator
+  changes the final verdict from PASS to FAIL.
+requirements:
+  - The panel contains the same three grader outcomes regardless of ordering.
+  - A parse-failed grader is non-voting and does not change the underlying panel membership.
+  - Reordering the same panel must not change the final verdict.
+implementation_freedom:
+  - The panel may be represented in any order.
+  - The evaluator may use any equivalent implementation of mode reduction.
+constraints:
+  - This task is a faithful local reproduction of public issue #4721, not an upstream run.
+failure_conditions:
+  - Reordering the same panel changes the verdict.
+candidate_file: solution.py
+oracle:
+  reference: solution.py
+  expected_behavior: same grader multiset and same intended panel verdict
+  expected_baseline_verdict: PASS
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 5
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+probes:
+  invariance:
+    - id: INV-ORDER-01
+      description: Reorder the same three grader outcomes; this must preserve the panel semantics.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/reversed_order.py}
+provenance:
+  source_project: Inspect AI
+  source_repository: https://github.com/UKGovernmentBEIS/inspect_ai
+  source_issue: https://github.com/UKGovernmentBEIS/inspect_ai/issues/4721
+  issue_title: "model_graded_qa(model=[...]): a grader that fails to parse shrinks the panel, and mode then decides the sample by list order"
+  source_commit_referenced_by_issue: 1ea01a9
+  source_revision_for_code_context: 7973622
+  reproduction_status: faithful_local_reproduction
+  external_validation_status: pending_maintainer_permission
+  generated_at: 2026-10-06

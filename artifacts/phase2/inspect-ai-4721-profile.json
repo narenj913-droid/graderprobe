@@ -1,0 +1,244 @@
+{
+  "schema": "graderprobe.boundary_integrity_profile.v1",
+  "task_id": "inspect-ai-4721-model-graded-panel-order",
+  "task_title": "Inspect AI model-graded panel order invariance",
+  "baseline": {
+    "ok": true,
+    "verdict": "PASS",
+    "reason": "baseline accepted",
+    "runs": [
+      {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "VOTES=['C', 'I']\nVERDICT=C\n",
+        "stderr": "",
+        "duration_ms": 661.204,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "ddcc2f697b92f26abd8559f8602716be7ad23125c04cb4bdd331455de256572b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "cafa199ed46d0bad01282fbfd47ff48dd5d6ace29135a48d3ed48f88ac847373"
+      }
+    ],
+    "known_invalid": null,
+    "behavior_runs": [
+      {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "PANEL_SEMANTICS_OK\n",
+        "stderr": "",
+        "duration_ms": 720.933,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "behavior_validator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "215e464046070b9d51acccb37976fdb6a76b3ac864e53dea50bc450487024dc1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "181fe952e442dc508ea7ddb85ea4b92a8406e6a1743a7a7612c1863b46a7845e"
+      }
+    ],
+    "behavior_ok": true,
+    "behavior_reason": "reference behavior accepted",
+    "harness_ok": true,
+    "output_stable": true,
+    "output_stability_reason": "stdout/stderr digests and exit code stable across repeats"
+  },
+  "metrics": {
+    "invariance_executed": 1,
+    "invariance_preserved": 0,
+    "sensitivity_executed": 0,
+    "sensitivity_detected": 0,
+    "false_acceptance_count": 0,
+    "false_rejection_count": 1,
+    "inconclusive_count": 0,
+    "probe_execution_error_rate": 0.0,
+    "invariance_preservation_rate": 0.0,
+    "sensitivity_detection_rate": null,
+    "optional_boundary_stability": null,
+    "optional_boundary_stability_note": "Optional summary only. Not a benchmark quality score. Defined as the unweighted mean of invariance preservation and sensitivity detection rates when both are defined."
+  },
+  "verdict": "BOUNDARY_FAIL",
+  "findings": [
+    {
+      "id": "PAIR-001",
+      "type": "false_rejection",
+      "severity": "high",
+      "probe_id": "INV-ORDER-01",
+      "summary": "INV-ORDER-01: confirmed false rejection (PASS->FAIL) after Reorder the same three grader outcomes; this must preserve the panel semantics.",
+      "evidence": {
+        "baseline": "PASS",
+        "mutant": "FAIL",
+        "expected_relation": "preserve",
+        "transformation": "replace_file",
+        "description": "Reorder the same three grader outcomes; this must preserve the panel semantics.",
+        "probe_class": "invariance",
+        "method": "deterministic",
+        "target": "solution.py",
+        "evidence_level": "SMOKE_VALIDATED",
+        "original_behavior_verdict": "PASS",
+        "transformed_behavior_verdict": "PASS"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "pair_id": "PAIR-001",
+      "probe_id": "INV-ORDER-01",
+      "probe_class": "invariance",
+      "method": "deterministic",
+      "transformation": {
+        "kind": "replace_file",
+        "params": {
+          "source": "alternatives/reversed_order.py"
+        },
+        "description": "Reorder the same three grader outcomes; this must preserve the panel semantics."
+      },
+      "expected_relation": "preserve",
+      "baseline_verdict": "PASS",
+      "actual_verdict": "FAIL",
+      "relation_held": false,
+      "finding": {
+        "id": "PAIR-001",
+        "type": "false_rejection",
+        "severity": "high",
+        "probe_id": "INV-ORDER-01",
+        "summary": "INV-ORDER-01: confirmed false rejection (PASS->FAIL) after Reorder the same three grader outcomes; this must preserve the panel semantics.",
+        "evidence": {
+          "baseline": "PASS",
+          "mutant": "FAIL",
+          "expected_relation": "preserve",
+          "transformation": "replace_file",
+          "description": "Reorder the same three grader outcomes; this must preserve the panel semantics.",
+          "probe_class": "invariance",
+          "method": "deterministic",
+          "target": "solution.py",
+          "evidence_level": "SMOKE_VALIDATED",
+          "original_behavior_verdict": "PASS",
+          "transformed_behavior_verdict": "PASS"
+        }
+      },
+      "original_hash": "b954b9de05eadb0166b53a983988192538eef952c2cfeb5b4d25b130ad86c52f",
+      "transformed_hash": "9886134f6e1730b9b163e4c42ef4e722b13bd36151e5993553312c4e4861fc83",
+      "evidence": {
+        "level": "SMOKE_VALIDATED",
+        "original_behavior": {
+          "verdict": "PASS",
+          "exit_code": 0,
+          "stdout": "PANEL_SEMANTICS_OK\n",
+          "stderr": "",
+          "duration_ms": 720.933,
+          "timed_out": false,
+          "workspace": "<temporary-workspace>",
+          "command": [
+            "python",
+            "behavior_validator.py"
+          ],
+          "error_message": "",
+          "attempt": 1,
+          "cache_hit": false,
+          "cache_key": "",
+          "stdout_sha256": "215e464046070b9d51acccb37976fdb6a76b3ac864e53dea50bc450487024dc1",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution_contract_sha256": "181fe952e442dc508ea7ddb85ea4b92a8406e6a1743a7a7612c1863b46a7845e"
+        },
+        "transformed_behavior": {
+          "verdict": "PASS",
+          "exit_code": 0,
+          "stdout": "PANEL_SEMANTICS_OK\n",
+          "stderr": "",
+          "duration_ms": 630.334,
+          "timed_out": false,
+          "workspace": "<temporary-workspace>",
+          "command": [
+            "python",
+            "behavior_validator.py"
+          ],
+          "error_message": "",
+          "attempt": 1,
+          "cache_hit": false,
+          "cache_key": "",
+          "stdout_sha256": "215e464046070b9d51acccb37976fdb6a76b3ac864e53dea50bc450487024dc1",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution_contract_sha256": "181fe952e442dc508ea7ddb85ea4b92a8406e6a1743a7a7612c1863b46a7845e"
+        },
+        "minimal_counterfactual": null
+      },
+      "original_candidate": "# Publicly documented reproduction data from Inspect AI issue #4721.\n# The middle grader does not produce a parseable GRADE: verdict.\nORDER = [\"GRADE: C\", \"I am not going to grade this.\", \"GRADE: I\"]\n",
+      "transformed_candidate": "# Same grader multiset, different order. Semantically invariant.\nORDER = [\"GRADE: I\", \"I am not going to grade this.\", \"GRADE: C\"]\n",
+      "baseline_execution": {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "VOTES=['C', 'I']\nVERDICT=C\n",
+        "stderr": "",
+        "duration_ms": 661.204,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "ddcc2f697b92f26abd8559f8602716be7ad23125c04cb4bdd331455de256572b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "cafa199ed46d0bad01282fbfd47ff48dd5d6ace29135a48d3ed48f88ac847373"
+      },
+      "probe_execution": {
+        "verdict": "FAIL",
+        "exit_code": 1,
+        "stdout": "VOTES=['I', 'C']\nVERDICT=I\n",
+        "stderr": "",
+        "duration_ms": 663.023,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "a5bd591c081ee12208e772fc556b20aed235f55a9bab744dad3f87eba878c4ea",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "cafa199ed46d0bad01282fbfd47ff48dd5d6ace29135a48d3ed48f88ac847373"
+      }
+    }
+  ],
+  "notes": [
+    "Passing boundary tests does not prove an evaluator is correct.",
+    "n_probes=1 for task inspect-ai-4721-model-graded-panel-order.",
+    "probe_workers=1.",
+    "execution_slots=1.",
+    "baseline_output_stable=True",
+    "model_provider=disabled"
+  ],
+  "environment": {
+    "graderprobe_version": "0.8.0",
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "seed": 0,
+    "utc": "2026-10-06T16:52:05Z",
+    "task_id": "inspect-ai-4721-model-graded-panel-order",
+    "network_policy": "unrestricted",
+    "inherit_secrets": false,
+    "max_workers": 1,
+    "pid": 7900
+  }
+}

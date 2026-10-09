@@ -1,0 +1,39 @@
+id: alt-algorithm-reject
+title: Alternative valid primality test rejected
+failure_mode: alternative_valid_implementation_rejection
+description: |
+  is_prime(n) is True iff n is an integer strictly greater than 1 with no
+  positive divisors other than 1 and itself.
+requirements:
+  - 0, 1, and negatives are not prime.
+  - 2 and 3 are prime.
+  - Composite numbers are not prime.
+implementation_freedom:
+  - Trial division may stop at sqrt(n).
+  - Sieves are valid for a single n if they agree on the predicate.
+failure_conditions:
+  - Reporting a composite as prime.
+oracle:
+  reference: solution.py
+  expected_behavior: primality
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/always_true.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Trial division only up to sqrt(n)
+      transform: {kind: replace_file, source: alternatives/sqrt.py}
+    - id: INV-02
+      description: Early even-check then odds
+      transform: {kind: replace_file, source: alternatives/odds.py}
+  sensitivity:
+    - id: SEN-01
+      description: Always return True
+      transform: {kind: replace_file, source: alternatives/always_true.py}
+    - id: SEN-02
+      description: Treat 1 as prime
+      transform: {kind: replace_file, source: alternatives/one_prime.py}
+provenance: {version: "0.1.0"}

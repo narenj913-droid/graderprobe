@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graderprobe.dev/schemas/release_assurance.schema.json",
+  "title": "GraderProbe release assurance report",
+  "type": "object",
+  "required": ["schema", "graderprobe_version", "repository", "base_ref", "head_ref", "decision", "release_fingerprint", "comparisons", "changed_files"],
+  "properties": {
+    "schema": {"const": "graderprobe.release_assurance.v1"},
+    "graderprobe_version": {"type": "string"},
+    "repository": {"type": "string"},
+    "base_ref": {"type": "string"},
+    "head_ref": {"type": "string"},
+    "base_commit": {"type": ["string", "null"]},
+    "head_commit": {"type": ["string", "null"]},
+    "decision": {"enum": ["ALLOW", "WARN", "BLOCK", "NO_CHANGES"]},
+    "release_fingerprint": {"type": "string", "pattern": "^sha256:"},
+    "changed_files": {"type": "array"},
+    "comparisons": {"type": "array", "items": {"type": "object", "properties": {"coverage_scope": {"enum": ["task_local", "global_fanout"]}, "decision": {"enum": ["ALLOW", "WARN", "BLOCK"]}, "comparability": {"type": "string"}}, "additionalProperties": true}},
+    "semantic_reviews": {"type": "array"},
+    "api_usage": {"type": "object"},
+    "deleted_task_paths": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

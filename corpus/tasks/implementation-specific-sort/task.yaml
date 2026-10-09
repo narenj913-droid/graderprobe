@@ -1,0 +1,36 @@
+id: implementation-specific-sort
+title: Implementation-specific sort grader
+failure_mode: implementation_specific_evaluator
+description: |
+  Return a new list with the input integers in non-decreasing order.
+  The algorithm is not specified.
+requirements:
+  - Return a sorted copy; do not mutate the caller if avoidable.
+implementation_freedom:
+  - Any correct sorting algorithm is valid, including the language sort.
+failure_conditions:
+  - Returning a reversed or partial order.
+oracle:
+  reference: solution.py
+  expected_behavior: sorted copy
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/reversed.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Use the language sorted builtin
+      transform: {kind: replace_file, source: alternatives/builtin.py}
+    - id: INV-02
+      description: Rename inner variables
+      transform: {kind: replace_file, source: alternatives/renamed.py}
+  sensitivity:
+    - id: SEN-01
+      description: Return the reversed order
+      transform: {kind: replace_file, source: alternatives/reversed.py}
+    - id: SEN-02
+      description: Drop the last element
+      transform: {kind: replace_file, source: alternatives/truncated.py}
+provenance: {version: "0.1.0"}

@@ -1,0 +1,38 @@
+id: deepeval-3025-declaration-order-upstream-trial
+title: DeepEval #3025 upstream DAG declaration-order trial
+description: |
+  Execute public DeepEval issue #3025 against the installed or source-checkout
+  package and test whether reversing the declaration order of two simultaneously
+  reachable scoring branches changes the score.
+failure_mode: DAGMetric score may depend on reachable branch declaration order
+requirements:
+  - The same reachable judgements must produce a stable score regardless of branch declaration order.
+  - The deterministic judge and execution mode must remain unchanged.
+constraints:
+  - This task executes the real upstream DeepEval package from an authorized checkout/environment; it is not a local surrogate.
+  - Upstream execution must be performed by an authorized maintainer/developer.
+candidate_file: solution.py
+oracle:
+  reference: solution.py
+  expected_behavior: declaration-order invariance
+  expected_baseline_verdict: PASS
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 30
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 10
+probes:
+  invariance:
+    - id: INV-UPSTREAM-DAG-DECLARATION-ORDER-01
+      description: Reverse branch declaration order while keeping sync execution and all judgement logic identical.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/deep_first_sync.py}
+provenance:
+  source_project: DeepEval
+  source_repository: https://github.com/confident-ai/deepeval
+  source_issue: https://github.com/confident-ai/deepeval/issues/3025
+  source_commit_referenced_by_issue: c6d82ce
+  reproduction_status: upstream_trial_bundle
+  external_validation_status: pending_authorized_upstream_execution
+  generated_at: 2026-10-06

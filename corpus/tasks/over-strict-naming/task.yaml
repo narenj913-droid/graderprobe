@@ -1,0 +1,47 @@
+id: over-strict-naming
+title: Over-strict identifier check
+failure_mode: over_strict_evaluator
+description: |
+  Return the sum of even integers in a list. Empty lists must return 0.
+  Identifier names are not part of the specification.
+requirements:
+  - Sum even integers only.
+  - Return 0 for an empty list.
+implementation_freedom:
+  - Variable and helper names may be chosen freely.
+  - Loop, comprehension, or library calls are valid.
+failure_conditions:
+  - Odd integers contribute to the sum.
+oracle:
+  reference: solution.py
+  expected_behavior: sum of evens
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/include_odds.py
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+  interpretation:
+    pass_exit_codes: [0]
+    fail_exit_codes: [1]
+probes:
+  invariance:
+    - id: INV-01
+      description: Rename total to acc
+      transform: {kind: replace_file, source: alternatives/renamed.py}
+    - id: INV-02
+      description: Comprehension instead of a loop
+      transform: {kind: replace_file, source: alternatives/comprehension.py}
+  sensitivity:
+    - id: SEN-01
+      description: Include odd numbers in the sum
+      transform: {kind: replace_file, source: alternatives/include_odds.py}
+    - id: SEN-02
+      description: Return a constant
+      transform: {kind: replace_file, source: alternatives/constant.py}
+provenance:
+  version: "0.1.0"
+  license: Apache-2.0

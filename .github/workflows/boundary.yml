@@ -1,0 +1,67 @@
+name: boundary
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      task:
+        description: Task yaml path
+        default: corpus/tasks/healthy-control/task.yaml
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -e .
+      - name: Changed-task boundary audit
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        env:
+          GRADERPROBE_BASE_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -uo pipefail
+          BASE="${GRADERPROBE_BASE_REF:-}"
+          if [ -z "$BASE" ] || ! git rev-parse "$BASE" >/dev/null 2>&1; then BASE="HEAD^"; fi
+          if ! git rev-parse "$BASE" >/dev/null 2>&1; then echo "No comparable Git base revision is available" >&2; exit 2; fi
+          set +e
+          graderprobe audit corpus/tasks --changed-only --base-ref "$BASE" --out graderprobe-out/audit --sarif-out graderprobe-out/audit/results.sarif --auto --auto-sensitive
+          rc=$?
+          set -e
+          if [ -f graderprobe-out/audit/results.sarif ]; then echo "SARIF ready"; fi
+          exit "$rc"
+      - name: Selected task boundary audit
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        env:
+          GRADERPROBE_TASK: ${{ inputs.task }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          root = Path(os.environ["GITHUB_WORKSPACE"]).resolve()
+          task = Path(os.environ["GRADERPROBE_TASK"])
+          path = (task if task.is_absolute() else root / task).resolve()
+          if path != root and root not in path.parents:
+              raise SystemExit("task must be inside GITHUB_WORKSPACE")
+          if not path.is_file():
+              raise SystemExit("task must be an existing file inside GITHUB_WORKSPACE")
+          PY
+          graderprobe run "$GRADERPROBE_TASK" --out graderprobe-out/task --fail-on high --auto --sarif-out graderprobe-out/task/results.sarif
+      - name: Upload SARIF on push
+        if: ${{ github.event_name == 'push' && hashFiles('graderprobe-out/audit/results.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: graderprobe-out/audit/results.sarif
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: graderprobe-boundary-evidence
+          path: graderprobe-out

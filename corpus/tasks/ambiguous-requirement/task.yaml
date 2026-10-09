@@ -1,0 +1,34 @@
+id: ambiguous-requirement
+title: Ambiguous spec marked inconclusive
+failure_mode: ambiguous_requirement_inconclusive
+description: |
+  process(items) should "handle" a list. The requirement is too vague to
+  grade. The evaluator must not invent a PASS/FAIL.
+requirements:
+  - The specification is intentionally incomplete.
+implementation_freedom:
+  - Not specified.
+failure_conditions:
+  - Forcing a binary grade.
+oracle:
+  reference: solution.py
+  expected_behavior: unknown
+  expected_baseline_verdict: INCONCLUSIVE
+  known_invalid: alternatives/other.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+  interpretation:
+    pass_exit_codes: [0]
+    fail_exit_codes: [1]
+    inconclusive_exit_codes: [2]
+probes:
+  invariance:
+    - id: INV-01
+      description: Identity-preserving rewrite
+      transform: {kind: replace_file, source: alternatives/other.py}
+  sensitivity:
+    - id: SEN-01
+      description: Another equally unspecified variant
+      transform: {kind: replace_file, source: alternatives/empty.py}
+provenance: {version: "0.1.0"}

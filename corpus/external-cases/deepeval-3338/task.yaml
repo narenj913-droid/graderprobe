@@ -1,0 +1,47 @@
+id: deepeval-3338-toolcorrectness-order
+title: DeepEval ToolCorrectnessMetric unordered-mode order invariance
+failure_mode: greedy pairing makes an order-insensitive metric depend on expected_tools order
+description: |
+  Faithful local reproduction of the behavior documented in DeepEval issue #3338.
+  In unordered, non-exact ToolCorrectnessMetric mode, greedy one-to-one pairing can
+  consume a called tool that a later expected tool could match better. Reordering the
+  same expected tool multiset changes the score and therefore can cross a pass/fail
+  threshold, despite the mode being documented as order-insensitive.
+requirements:
+  - expected_tools order must not affect an unordered, non-exact score.
+  - each expected tool may be paired with at most one called tool.
+  - input-parameter similarity is the scoring surface in this case.
+implementation_freedom:
+  - Equivalent representations of tool calls are allowed.
+  - Any order-insensitive optimal assignment is an acceptable semantic oracle.
+constraints:
+  - This task is a faithful local reproduction of public issue #3338, not an upstream run.
+  - The reproduced behavior uses the exact numeric pair scores reported by the issue.
+failure_conditions:
+  - Reordering expected_tools changes the score or pass/fail verdict.
+candidate_file: solution.py
+oracle:
+  reference: solution.py
+  expected_behavior: order-insensitive tool matching
+  expected_baseline_verdict: PASS
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 5
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+probes:
+  invariance:
+    - id: INV-EXPECTED-ORDER-01
+      description: Reverse the same two expected tool calls; unordered semantics must preserve the score and verdict.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/reversed_expected.py}
+provenance:
+  source_project: DeepEval
+  source_repository: https://github.com/confident-ai/deepeval
+  source_issue: https://github.com/confident-ai/deepeval/issues/3338
+  issue_title: "ToolCorrectnessMetric (unordered mode): greedy pairing makes the score depend on the order of expected_tools"
+  source_commit_referenced_by_issue: d65c8da
+  reproduction_status: faithful_local_reproduction_of_public_repro
+  external_validation_status: pending_maintainer_permission
+  generated_at: 2026-10-06

@@ -1,0 +1,37 @@
+id: inspect-ai-4721-upstream-trial
+title: Inspect AI #4721 upstream panel-order trial
+description: |
+  Execute public Inspect AI issue #4721 against the installed upstream package and
+  detect whether reversing an otherwise identical grader panel changes the verdict.
+failure_mode: model_graded_qa panel reduction may depend on grader list order after parse failure
+requirements:
+  - The same three grader outputs must remain the same multiset regardless of ordering.
+  - Reordering the grader list must not change an order-independent panel verdict.
+  - The trial uses mockllm and requires no model API key.
+constraints:
+  - This task executes the installed upstream Inspect AI package; it is not a local surrogate.
+  - Upstream execution must be performed by an authorized maintainer/developer.
+candidate_file: solution.py
+oracle:
+  reference: solution.py
+  expected_behavior: panel-order invariance
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 30
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 10
+probes:
+  invariance:
+    - id: INV-UPSTREAM-PANEL-ORDER-01
+      description: Reverse the same three grader outputs.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/reversed_order.py}
+provenance:
+  source_project: Inspect AI
+  source_repository: https://github.com/UKGovernmentBEIS/inspect_ai
+  source_issue: https://github.com/UKGovernmentBEIS/inspect_ai/issues/4721
+  source_commit_referenced_by_issue: 1ea01a9
+  reproduction_status: upstream_trial_bundle
+  external_validation_status: pending_authorized_upstream_execution
+  generated_at: 2026-10-06

@@ -1,0 +1,41 @@
+id: missing-required-behavior
+title: Unknown-key rejection never tested
+failure_mode: missing_required_behavior
+description: |
+  parse_config(data) reads keys host and port. Unknown keys must raise ValueError.
+requirements:
+  - "Return host and port for valid input."
+  - Reject unknown keys.
+  - Reject missing host.
+implementation_freedom:
+  - Dict or small object return is fine if keys match.
+failure_conditions:
+  - Silently ignoring unknown keys.
+oracle:
+  reference: solution.py
+  expected_behavior: strict key set
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/ignore_unknown.py
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Use a set for allowed keys
+      transform: {kind: replace_file, source: alternatives/set_keys.py}
+    - id: INV-02
+      description: Comment only
+      transform: {kind: insert_comments, comment: "strict parser"}
+  sensitivity:
+    - id: SEN-01
+      description: Ignore unknown keys
+      transform: {kind: replace_file, source: alternatives/ignore_unknown.py}
+    - id: SEN-02
+      description: Drop missing-host validation
+      transform: {kind: replace_file, source: alternatives/no_host_check.py}
+provenance: {version: "0.1.0"}

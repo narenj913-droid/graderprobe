@@ -1,0 +1,42 @@
+id: deepeval-3338-upstream-trial
+title: DeepEval #3338 upstream order-invariance trial
+description: |
+  Execute public DeepEval issue #3338 against the installed upstream package and
+  detect whether reversing unordered expected_tools changes the measured score/verdict.
+failure_mode: ToolCorrectnessMetric unordered matching may depend on expected_tools order
+requirements:
+  - Reversing expected_tools in unordered mode must preserve the score and verdict.
+  - The same called tool trajectory must be used in both executions.
+  - No LLM call is required.
+constraints:
+  - This task executes the installed upstream DeepEval package; it is not a local surrogate.
+  - Upstream execution must be performed by an authorized maintainer/developer in an environment where DeepEval is installed.
+candidate_file: solution.py
+oracle:
+  reference: solution.py
+  expected_behavior: order-insensitive tool matching
+  expected_baseline_verdict: PASS
+evaluator:
+  command: ["python", "evaluator.py"]
+  environment:
+    OPENAI_API_KEY: "dummy-local-key-no-calls"
+    DEEPEVAL_DISABLE_DOTENV: "1"
+    DEEPEVAL_TELEMETRY_OPT_OUT: "YES"
+  timeout_seconds: 30
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 10
+probes:
+  invariance:
+    - id: INV-UPSTREAM-EXPECTED-ORDER-01
+      description: Reverse expected_tools while preserving the same unordered multiset.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/reversed_expected.py}
+provenance:
+  source_project: DeepEval
+  source_repository: https://github.com/confident-ai/deepeval
+  source_issue: https://github.com/confident-ai/deepeval/issues/3338
+  source_commit_referenced_by_issue: d65c8da
+  reproduction_status: upstream_trial_bundle
+  external_validation_status: pending_authorized_upstream_execution
+  generated_at: 2026-10-06

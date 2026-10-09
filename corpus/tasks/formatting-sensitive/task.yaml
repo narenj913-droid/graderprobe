@@ -1,0 +1,35 @@
+id: formatting-sensitive
+title: Formatting-sensitive source matcher
+failure_mode: formatting_sensitive_evaluator
+description: |
+  greet(name) returns "hello, <name>". Quote style and whitespace are not specified.
+requirements:
+  - Return the greeting string.
+implementation_freedom:
+  - Quote style, spacing, and parentheses are free.
+failure_conditions:
+  - Returning a different greeting.
+oracle:
+  reference: solution.py
+  expected_behavior: hello, name
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/wrong_text.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Single quotes instead of double
+      transform: {kind: replace_file, source: alternatives/single_quotes.py}
+    - id: INV-02
+      description: Extra blank lines
+      transform: {kind: normalize_whitespace, blank_lines: 3}
+  sensitivity:
+    - id: SEN-01
+      description: Wrong greeting text
+      transform: {kind: replace_file, source: alternatives/wrong_text.py}
+    - id: SEN-02
+      description: Drop the comma
+      transform: {kind: replace_file, source: alternatives/no_comma.py}
+provenance: {version: "0.1.0"}

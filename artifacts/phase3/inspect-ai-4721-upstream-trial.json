@@ -1,0 +1,26 @@
+{
+  "baseline": {
+    "returncode": 10,
+    "stderr": "INSPECT_AI_IMPORT_ERROR=ModuleNotFoundError: No module named 'inspect_ai'\n",
+    "stdout": ""
+  },
+  "executed_repository": "<LOCAL_WORKSPACE>",
+  "executed_revision": null,
+  "expected_public_verdicts": [
+    "C",
+    "I"
+  ],
+  "issue": "https://github.com/UKGovernmentBEIS/inspect_ai/issues/4721",
+  "observed_verdicts": [
+    null,
+    null
+  ],
+  "project": "Inspect AI",
+  "reported_revision": "1ea01a9",
+  "status": "dependency_or_import_error",
+  "transformed": {
+    "returncode": 10,
+    "stderr": "INSPECT_AI_IMPORT_ERROR=ModuleNotFoundError: No module named 'inspect_ai'\n",
+    "stdout": ""
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graderprobe.dev/schemas/task.schema.json",
+  "title": "GraderProbe native task",
+  "type": "object",
+  "required": [
+    "id",
+    "description",
+    "oracle",
+    "evaluator"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "failure_mode": {
+      "type": "string"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "implementation_freedom": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "failure_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidate_file": {
+      "type": "string",
+      "default": "solution.py"
+    },
+    "baseline_repeats": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "oracle": {
+      "type": "object",
+      "required": [
+        "reference"
+      ],
+      "properties": {
+        "reference": {
+          "type": "string"
+        },
+        "expected_behavior": {
+          "type": "string"
+        },
+        "expected_baseline_verdict": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INCONCLUSIVE"
+          ]
+        },
+        "known_invalid": {
+          "type": "string"
+        },
+        "known_invalid_verdict": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        }
+      }
+    },
+    "evaluator": {
+      "type": "object",
+      "required": [
+        "command"
+      ],
+      "properties": {
+        "command": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "timeout_seconds": {
+          "type": "number",
+          "minimum": 0.1
+        },
+        "working_dir": {
+          "type": "string"
+        },
+        "network": {
+          "enum": [
+            "unrestricted",
+            "blocked"
+          ],
+          "default": "unrestricted"
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "interpretation": {
+          "type": "object",
+          "properties": {
+            "pass_exit_codes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "fail_exit_codes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "inconclusive_exit_codes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "verdict_protocol": {
+              "enum": [
+                "exit_code",
+                "marker"
+              ]
+            }
+          },
+          "additionalProperties": true
+        },
+        "sandbox": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "backend": {
+              "enum": [
+                "process",
+                "docker"
+              ]
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "network": {
+              "enum": [
+                "none",
+                "bridge"
+              ]
+            },
+            "memory": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cpus": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "probes": {
+      "type": "object",
+      "properties": {
+        "invariance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/probe"
+          }
+        },
+        "sensitivity": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/probe"
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "behavior_validator": {
+      "$ref": "#/$defs/executionSpec"
+    }
+  },
+  "$defs": {
+    "probe": {
+      "type": "object",
+      "required": [
+        "id",
+        "transform"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "method": {
+          "enum": [
+            "deterministic",
+            "MODEL_GENERATED"
+          ]
+        },
+        "target": {
+          "type": "string"
+        },
+        "transform": {
+          "type": "object",
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "expected_relation": {
+          "enum": [
+            "preserve",
+            "invalidate"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "executionSpec": {
+      "type": "object",
+      "required": [
+        "command"
+      ],
+      "properties": {
+        "command": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            }
+          ]
+        },
+        "timeout_seconds": {
+          "type": "number",
+          "minimum": 0.1
+        },
+        "working_dir": {
+          "type": "string"
+        },
+        "network": {
+          "enum": [
+            "unrestricted",
+            "blocked"
+          ]
+        },
+        "environment": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "interpretation": {
+          "type": "object",
+          "properties": {
+            "pass_exit_codes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "fail_exit_codes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "inconclusive_exit_codes": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "verdict_protocol": {
+              "enum": [
+                "exit_code",
+                "marker"
+              ]
+            },
+            "notes": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "sandbox": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "backend": {
+              "enum": [
+                "process",
+                "docker"
+              ]
+            },
+            "image": {
+              "type": "string",
+              "minLength": 1
+            },
+            "network": {
+              "enum": [
+                "none",
+                "bridge"
+              ]
+            },
+            "memory": {
+              "type": "string",
+              "minLength": 1
+            },
+            "cpus": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

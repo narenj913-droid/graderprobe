@@ -1,0 +1,29 @@
+id: misleading-nl
+title: Natural language says sum, tests check product
+failure_mode: misleading_natural_language_requirement
+description: |
+  combine(a, b) must return the sum of a and b.
+requirements:
+  - Return a + b.
+implementation_freedom:
+  - Operator or explicit addition.
+failure_conditions:
+  - Returning a product or other combination.
+oracle:
+  reference: solution.py
+  expected_behavior: sum, as stated in the description
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/product.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Use sum()
+      transform: {kind: replace_file, source: alternatives/sum_call.py}
+  sensitivity:
+    - id: SEN-01
+      description: Return the product (what the tests actually want)
+      transform: {kind: replace_file, source: alternatives/product.py}
+provenance: {version: "0.1.0"}

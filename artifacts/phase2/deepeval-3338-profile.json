@@ -1,0 +1,244 @@
+{
+  "schema": "graderprobe.boundary_integrity_profile.v1",
+  "task_id": "deepeval-3338-toolcorrectness-order",
+  "task_title": "DeepEval ToolCorrectnessMetric unordered-mode order invariance",
+  "baseline": {
+    "ok": true,
+    "verdict": "PASS",
+    "reason": "baseline accepted",
+    "runs": [
+      {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "PAIR_SCORES=[1.0, 0.3333333333333333]\nSCORE=0.666667\nTHRESHOLD=0.600000\nVERDICT=PASS\n",
+        "stderr": "",
+        "duration_ms": 600.613,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "893ca76f625e0677c3722c4cd41de73befc0301c8ef6ff4817e1d0feefbda1b5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "cafa199ed46d0bad01282fbfd47ff48dd5d6ace29135a48d3ed48f88ac847373"
+      }
+    ],
+    "known_invalid": null,
+    "behavior_runs": [
+      {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "ORDER_INVARIANT_SCORE=0.666667\n",
+        "stderr": "",
+        "duration_ms": 590.932,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "behavior_validator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "8acc256c42412db659904db6dea80119e91d8c742a1c4bb4a67b527596003506",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "181fe952e442dc508ea7ddb85ea4b92a8406e6a1743a7a7612c1863b46a7845e"
+      }
+    ],
+    "behavior_ok": true,
+    "behavior_reason": "reference behavior accepted",
+    "harness_ok": true,
+    "output_stable": true,
+    "output_stability_reason": "stdout/stderr digests and exit code stable across repeats"
+  },
+  "metrics": {
+    "invariance_executed": 1,
+    "invariance_preserved": 0,
+    "sensitivity_executed": 0,
+    "sensitivity_detected": 0,
+    "false_acceptance_count": 0,
+    "false_rejection_count": 1,
+    "inconclusive_count": 0,
+    "probe_execution_error_rate": 0.0,
+    "invariance_preservation_rate": 0.0,
+    "sensitivity_detection_rate": null,
+    "optional_boundary_stability": null,
+    "optional_boundary_stability_note": "Optional summary only. Not a benchmark quality score. Defined as the unweighted mean of invariance preservation and sensitivity detection rates when both are defined."
+  },
+  "verdict": "BOUNDARY_FAIL",
+  "findings": [
+    {
+      "id": "PAIR-001",
+      "type": "false_rejection",
+      "severity": "high",
+      "probe_id": "INV-EXPECTED-ORDER-01",
+      "summary": "INV-EXPECTED-ORDER-01: confirmed false rejection (PASS->FAIL) after Reverse the same two expected tool calls; unordered semantics must preserve the score and verdict.",
+      "evidence": {
+        "baseline": "PASS",
+        "mutant": "FAIL",
+        "expected_relation": "preserve",
+        "transformation": "replace_file",
+        "description": "Reverse the same two expected tool calls; unordered semantics must preserve the score and verdict.",
+        "probe_class": "invariance",
+        "method": "deterministic",
+        "target": "solution.py",
+        "evidence_level": "SMOKE_VALIDATED",
+        "original_behavior_verdict": "PASS",
+        "transformed_behavior_verdict": "PASS"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "pair_id": "PAIR-001",
+      "probe_id": "INV-EXPECTED-ORDER-01",
+      "probe_class": "invariance",
+      "method": "deterministic",
+      "transformation": {
+        "kind": "replace_file",
+        "params": {
+          "source": "alternatives/reversed_expected.py"
+        },
+        "description": "Reverse the same two expected tool calls; unordered semantics must preserve the score and verdict."
+      },
+      "expected_relation": "preserve",
+      "baseline_verdict": "PASS",
+      "actual_verdict": "FAIL",
+      "relation_held": false,
+      "finding": {
+        "id": "PAIR-001",
+        "type": "false_rejection",
+        "severity": "high",
+        "probe_id": "INV-EXPECTED-ORDER-01",
+        "summary": "INV-EXPECTED-ORDER-01: confirmed false rejection (PASS->FAIL) after Reverse the same two expected tool calls; unordered semantics must preserve the score and verdict.",
+        "evidence": {
+          "baseline": "PASS",
+          "mutant": "FAIL",
+          "expected_relation": "preserve",
+          "transformation": "replace_file",
+          "description": "Reverse the same two expected tool calls; unordered semantics must preserve the score and verdict.",
+          "probe_class": "invariance",
+          "method": "deterministic",
+          "target": "solution.py",
+          "evidence_level": "SMOKE_VALIDATED",
+          "original_behavior_verdict": "PASS",
+          "transformed_behavior_verdict": "PASS"
+        }
+      },
+      "original_hash": "0fbfd225fa791630f91fb215f3104ee47fd589e9d4655adefbeb2fdeb9a6f2fb",
+      "transformed_hash": "626d4c506a55df01b434766648d8df913d81c688d08a2fa0534b813a1959e366",
+      "evidence": {
+        "level": "SMOKE_VALIDATED",
+        "original_behavior": {
+          "verdict": "PASS",
+          "exit_code": 0,
+          "stdout": "ORDER_INVARIANT_SCORE=0.666667\n",
+          "stderr": "",
+          "duration_ms": 590.932,
+          "timed_out": false,
+          "workspace": "<temporary-workspace>",
+          "command": [
+            "python",
+            "behavior_validator.py"
+          ],
+          "error_message": "",
+          "attempt": 1,
+          "cache_hit": false,
+          "cache_key": "",
+          "stdout_sha256": "8acc256c42412db659904db6dea80119e91d8c742a1c4bb4a67b527596003506",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution_contract_sha256": "181fe952e442dc508ea7ddb85ea4b92a8406e6a1743a7a7612c1863b46a7845e"
+        },
+        "transformed_behavior": {
+          "verdict": "PASS",
+          "exit_code": 0,
+          "stdout": "ORDER_INVARIANT_SCORE=0.666667\n",
+          "stderr": "",
+          "duration_ms": 579.223,
+          "timed_out": false,
+          "workspace": "<temporary-workspace>",
+          "command": [
+            "python",
+            "behavior_validator.py"
+          ],
+          "error_message": "",
+          "attempt": 1,
+          "cache_hit": false,
+          "cache_key": "",
+          "stdout_sha256": "8acc256c42412db659904db6dea80119e91d8c742a1c4bb4a67b527596003506",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution_contract_sha256": "181fe952e442dc508ea7ddb85ea4b92a8406e6a1743a7a7612c1863b46a7845e"
+        },
+        "minimal_counterfactual": null
+      },
+      "original_candidate": "# Same expected_tools multiset as the public issue #3338 repro.\n# Baseline order deliberately puts the stronger exact match first.\nEXPECTED = [\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 1, \"c\": 2}},\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 1, \"c\": 1}},\n]\nCALLED = [\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 1, \"c\": 2}},\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 5, \"c\": 5}},\n]\nTHRESHOLD = 0.6\n",
+      "transformed_candidate": "# Same expected_tools multiset, reversed. The public issue reports this changes\n# the documented unordered-mode score from 0.6667 to 0.5.\nEXPECTED = [\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 1, \"c\": 1}},\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 1, \"c\": 2}},\n]\nCALLED = [\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 1, \"c\": 2}},\n    {\"name\": \"book\", \"input_parameters\": {\"a\": 1, \"b\": 5, \"c\": 5}},\n]\nTHRESHOLD = 0.6\n",
+      "baseline_execution": {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "PAIR_SCORES=[1.0, 0.3333333333333333]\nSCORE=0.666667\nTHRESHOLD=0.600000\nVERDICT=PASS\n",
+        "stderr": "",
+        "duration_ms": 600.613,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "893ca76f625e0677c3722c4cd41de73befc0301c8ef6ff4817e1d0feefbda1b5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "cafa199ed46d0bad01282fbfd47ff48dd5d6ace29135a48d3ed48f88ac847373"
+      },
+      "probe_execution": {
+        "verdict": "FAIL",
+        "exit_code": 1,
+        "stdout": "PAIR_SCORES=[0.6666666666666666, 0.3333333333333333]\nSCORE=0.500000\nTHRESHOLD=0.600000\nVERDICT=FAIL\n",
+        "stderr": "",
+        "duration_ms": 563.369,
+        "timed_out": false,
+        "workspace": "<temporary-workspace>",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "4182abbbd77ce8df4e8e4f6a295e0c43957d56a496f259955677cdbdf2e0239a",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "cafa199ed46d0bad01282fbfd47ff48dd5d6ace29135a48d3ed48f88ac847373"
+      }
+    }
+  ],
+  "notes": [
+    "Passing boundary tests does not prove an evaluator is correct.",
+    "n_probes=1 for task deepeval-3338-toolcorrectness-order.",
+    "probe_workers=1.",
+    "execution_slots=1.",
+    "baseline_output_stable=True",
+    "model_provider=disabled"
+  ],
+  "environment": {
+    "graderprobe_version": "0.8.0",
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "seed": 0,
+    "utc": "2026-10-06T16:53:19Z",
+    "task_id": "deepeval-3338-toolcorrectness-order",
+    "network_policy": "unrestricted",
+    "inherit_secrets": false,
+    "max_workers": 1,
+    "pid": 8032
+  }
+}

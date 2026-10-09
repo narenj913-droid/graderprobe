@@ -1,0 +1,54 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  fast:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: pip install -e .
+      - name: Fast deterministic tests
+        run: |
+          python -m unittest -q \
+            tests.test_findings \
+            tests.test_transforms \
+            tests.test_task_schema \
+            tests.test_stage1_hardening \
+            tests.test_public_workflow_input_safety \
+            tests.test_stage3_ast \
+            tests.test_stage8_causal_lock
+      - name: CLI smoke
+        run: |
+          graderprobe --version
+          graderprobe --help >/dev/null
+
+  heavy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -e .
+      - name: Heavy subprocess integration suite
+        timeout-minutes: 20
+        run: python -m unittest discover -s tests -v
+      - name: Offline demo
+        timeout-minutes: 10
+        run: python -m graderprobe demo --out /tmp/graderprobe-demo

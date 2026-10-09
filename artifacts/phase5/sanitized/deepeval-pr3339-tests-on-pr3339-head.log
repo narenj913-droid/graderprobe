@@ -1,0 +1,16 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.3, pytest-9.1.1, pluggy-1.6.0 -- <TEMP>\graderprobe-deepeval-3338-validation\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: <TEMP>\graderprobe-deepeval-3338-validation\after
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
+collecting ... collected 5 items
+
+<TEMP>\graderprobe-deepeval-3338-validation\after\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_score_does_not_depend_on_expected_order PASSED [ 20%]
+<TEMP>\graderprobe-deepeval-3338-validation\after\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_partial_credit_uses_best_pairing PASSED [ 40%]
+<TEMP>\graderprobe-deepeval-3338-validation\after\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_score_does_not_depend_on_called_order PASSED [ 60%]
+<TEMP>\graderprobe-deepeval-3338-validation\after\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_more_calls_than_expected PASSED [ 80%]
+<TEMP>\graderprobe-deepeval-3338-validation\after\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_fewer_calls_than_expected PASSED [100%]
+
+============================== 5 passed in 2.25s ==============================

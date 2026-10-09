@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "SCORE=0.666667\nTHRESHOLD=0.600000\nVERDICT=PASS\nDEEPEVAL_VERSION=4.2.4\n"
+  },
+  "executed_repository": "<TEMP>/graderprobe-deepeval-3338-validation/before",
+  "executed_revision": "d65c8da504ca566d3b9590b798c72b9ab720ce59",
+  "expected_public_pair": [
+    0.5,
+    0.6667
+  ],
+  "issue": "https://github.com/confident-ai/deepeval/issues/3338",
+  "project": "DeepEval",
+  "reported_revision": "d65c8da",
+  "status": "reproduced",
+  "transformed": {
+    "returncode": 1,
+    "stderr": "",
+    "stdout": "SCORE=0.500000\nTHRESHOLD=0.600000\nVERDICT=FAIL\nDEEPEVAL_VERSION=4.2.4\n"
+  }
+}

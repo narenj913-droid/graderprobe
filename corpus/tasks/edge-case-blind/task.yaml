@@ -1,0 +1,37 @@
+id: edge-case-blind
+title: Empty-list blind spot
+failure_mode: edge_case_blind_spot
+description: |
+  Return the maximum of a non-empty list of integers. An empty list must
+  raise ValueError. The empty-list requirement is explicit.
+requirements:
+  - Maximum of provided integers.
+  - ValueError on empty input.
+implementation_freedom:
+  - max() builtin or a loop are both valid.
+failure_conditions:
+  - Returning a sentinel such as 0 on empty input.
+oracle:
+  reference: solution.py
+  expected_behavior: max or ValueError
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/zero_on_empty.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Manual loop instead of max
+      transform: {kind: replace_file, source: alternatives/loop.py}
+    - id: INV-02
+      description: Insert a comment
+      transform: {kind: insert_comments, comment: "invariance"}
+  sensitivity:
+    - id: SEN-01
+      description: Return 0 on empty instead of ValueError
+      transform: {kind: replace_file, source: alternatives/zero_on_empty.py}
+    - id: SEN-02
+      description: Return the first element, not the max
+      transform: {kind: replace_file, source: alternatives/first.py}
+provenance: {version: "0.1.0"}

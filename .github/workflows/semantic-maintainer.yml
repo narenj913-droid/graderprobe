@@ -1,0 +1,73 @@
+name: semantic-maintainer-audit
+on:
+  workflow_dispatch:
+    inputs:
+      base-ref:
+        description: Git ref to compare against
+        required: false
+        default: HEAD~1
+      enable-semantic:
+        description: Explicitly enable the bounded OpenAI semantic audit
+        required: true
+        default: false
+        type: boolean
+      model:
+        description: OpenAI model (optional)
+        required: false
+        default: ""
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -e .
+      - name: Semantic maintainer audit
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GRADERPROBE_OPENAI_MODEL: ${{ inputs.model || vars.GRADERPROBE_OPENAI_MODEL }}
+          GRADERPROBE_BASE_REF: ${{ inputs.base-ref }}
+          GRADERPROBE_ENABLE_SEMANTIC: ${{ inputs.enable-semantic }}
+        run: |
+          set -euo pipefail
+          if [ "$GRADERPROBE_ENABLE_SEMANTIC" != "true" ]; then
+            echo "Semantic audit is disabled; no model call will be made."
+            exit 0
+          fi
+          if [ -z "${OPENAI_API_KEY:-}" ]; then
+            echo "Semantic audit was explicitly enabled but OPENAI_API_KEY is not configured."
+            exit 2
+          fi
+          if [ -z "${GRADERPROBE_OPENAI_MODEL:-}" ]; then
+            echo "Semantic audit was explicitly enabled but no model is configured. Set the model input or GRADERPROBE_OPENAI_MODEL repository variable."
+            exit 2
+          fi
+          set +e
+          graderprobe audit corpus/tasks \
+            --changed-only \
+            --base-ref "$GRADERPROBE_BASE_REF" \
+            --semantic \
+            --auto \
+            --auto-sensitive \
+            --out graderprobe-out/semantic \
+            --sarif-out graderprobe-out/semantic/results.sarif
+          rc=$?
+          set -e
+          exit $rc
+      - name: Upload SARIF
+        if: ${{ always() && hashFiles('graderprobe-out/semantic/results.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: graderprobe-out/semantic/results.sarif
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: graderprobe-semantic-evidence
+          path: graderprobe-out/semantic

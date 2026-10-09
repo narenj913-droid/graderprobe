@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>GraderProbe — deepeval-3338-upstream-trial</title>
+<style>
+  :root { color-scheme: dark; }
+  body { font: 15px/1.45 ui-sans-serif, system-ui, sans-serif; background:#0b0c0e; color:#e8e6e1; margin:0; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-weight: 560; letter-spacing: -0.03em; font-size: 28px; }
+  .muted { color:#8b8a86; }
+  .card { border:1px solid #2a2b2e; border-radius:16px; padding:20px; margin:16px 0; background:#141518; }
+  table { width:100%; border-collapse: collapse; font-size:13px; }
+  th, td { text-align:left; padding:8px 6px; border-bottom:1px solid #2a2b2e; vertical-align:top; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .v { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<main>
+  <p class="muted">GraderProbe boundary integrity profile</p>
+  <h1>deepeval-3338-upstream-trial</h1>
+  <p>DeepEval</p>
+  <div class="card">
+    <p>Baseline: <code>PASS</code></p>
+    <p>Profile verdict: <code>BOUNDARY_OK</code></p>
+    <p class="v">Invariance 1/1
+       · Sensitivity 0/0
+       · FA 0 · FR 0</p>
+  </div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Pair</th><th>Probe</th><th>Class</th><th>Verdicts</th><th>Finding</th><th>Transformation</th></tr></thead>
+      <tbody>
+      <tr><td>PAIR-001</td><td>INV-UPSTREAM-EXPECTED-ORDER-01</td><td>invariance</td><td>PASS → PASS</td><td>relation_held</td><td>Reverse expected_tools while preserving the same unordered multiset.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted">Passing Boundary Tests does not prove an evaluator is correct.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,41 @@
+id: under-constrained-auth
+title: Under-constrained authorization check
+failure_mode: under_constrained_evaluator
+description: |
+  lookup(record, token) must return the record payload only when token equals
+  the shared secret. Any other token must raise PermissionError.
+requirements:
+  - Accept only the exact shared secret token.
+  - Reject missing, empty, and wrong tokens with PermissionError.
+implementation_freedom:
+  - Comparison style is free as long as it is exact.
+failure_conditions:
+  - Returning data without a valid token.
+oracle:
+  reference: solution.py
+  expected_behavior: token gate
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/no_check.py
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Rename token parameter
+      transform: {kind: replace_file, source: alternatives/renamed.py}
+    - id: INV-02
+      description: Extract helper for the comparison
+      transform: {kind: replace_file, source: alternatives/helper.py}
+  sensitivity:
+    - id: SEN-01
+      description: Remove the authorization check
+      transform: {kind: replace_file, source: alternatives/no_check.py}
+    - id: SEN-02
+      description: Accept any non-empty token
+      transform: {kind: replace_file, source: alternatives/any_token.py}
+provenance: {version: "0.1.0"}

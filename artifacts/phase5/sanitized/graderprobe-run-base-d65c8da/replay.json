@@ -1,0 +1,30 @@
+{
+  "config": {
+    "baseline_repeats_override": null,
+    "execution_slots": 1,
+    "include_auto_probes": false,
+    "include_auto_sensitivity": false,
+    "include_model_probes": false,
+    "inherit_secrets": false,
+    "max_minimization_runs": 12,
+    "max_model_proposals": 3,
+    "max_workers": 1,
+    "memoize_minimization": true,
+    "minimize_counterfactuals": false,
+    "seed": 0,
+    "validate_behavior": true,
+    "validate_behavior_all": false,
+    "validate_invariance_behavior": true
+  },
+  "graderprobe_version": "0.8.0",
+  "model_probes": [],
+  "outcome_fingerprint": "2dd9b986f959369649136cef9d69c3d9176a59b5daff7caf15ace03404fe3139",
+  "profile_path": "<WORKSPACE>\\artifacts\\phase5\\graderprobe-run-base-d65c8da\\profile.json",
+  "profile_sha256": "5cb0b06c606632d8402cf8d0d57fb409c60ebfc3f24c56363d6a2449514e964c",
+  "schema": "graderprobe.replay_bundle.v1",
+  "source_root": "<WORKSPACE>\\corpus\\external-trials\\deepeval-3338",
+  "source_tree_digest": "847b477a60309f58b03f30e48ade8920b74fbf790e998a7d62c617f2a1eaab20",
+  "task_file": "<WORKSPACE>\\corpus\\external-trials\\deepeval-3338\\task.yaml",
+  "task_file_sha256": "94b38ab5f6a9871f0c45048d065cd15f6b775246b13ad7acb68165d1aa790215",
+  "task_id": "deepeval-3338-upstream-trial"
+}

@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If GraderProbe contributes to your work, please cite this repository."
+title: "GraderProbe: Counterfactual Boundary Testing for AI Evaluations"
+type: software
+license: Apache-2.0
+version: 0.8.0
+abstract: >-
+  Open-source counterfactual testing, change-aware release assurance, and frozen-candidate causal attribution
+  for AI evaluators and benchmark graders.
+authors:
+  - family-names: "GraderProbe"
+    given-names: "Authors"
+repository-code: https://github.com/narenj913-droid/graderprobe

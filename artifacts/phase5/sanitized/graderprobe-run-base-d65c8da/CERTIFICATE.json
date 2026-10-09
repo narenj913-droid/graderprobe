@@ -1,0 +1,37 @@
+{
+  "schema": "graderprobe.certificate.v1",
+  "disclaimer": "This manifest records hashes of artifacts that were executed. It is not a cryptographic proof of evaluator correctness and does not use a novel signature standard.",
+  "created_utc": "2026-10-09T15:59:18Z",
+  "graderprobe_version": "0.8.0",
+  "task_id": "deepeval-3338-upstream-trial",
+  "profile_verdict": "BOUNDARY_FAIL",
+  "hashes": {
+    "task_tree": {
+      "alternatives/reversed_expected.py": "81dbdb5e09a850f01d63d48fac22be4a75e7ce73e647041da1f1924387b072c6",
+      "behavior_validator.py": "0a6be1ff2d32d432d1d4b7e84cacb2f7efa6763ffb01a82464c902c27116cb25",
+      "evaluator.py": "ad69cbec50f7f47949fae5c42d0a99e56819addc2599fee795ae0967d7801595",
+      "solution.py": "c2e006c0dd338a7977fe9b869557caa4fbff116fe492b25572936dcf25288937",
+      "task.yaml": "94b38ab5f6a9871f0c45048d065cd15f6b775246b13ad7acb68165d1aa790215"
+    },
+    "task_tree_digest": "847b477a60309f58b03f30e48ade8920b74fbf790e998a7d62c617f2a1eaab20",
+    "task_id": "3b363f98560cbd219b50cb32c0091872ca46c6b0a8fb58f8353c3efc4db2a053",
+    "evaluator_contract": "69619d1cf2efb209bca391218abf1220c4eeb55d492c547f1084ea83e4bcc137",
+    "behavior_validator_contract": "8e5be383743bcd3f586e899e2bee9a10e6dbd7fbae273d62b5217dfe71af42c4",
+    "probe_ids": "42913e5387e9d3f2e09358a134aaece6fc8d06995feb218402079eaf6d0cbe0b",
+    "probe_catalog": "83f6b4ed880b3d0954fe714841057bf8b7f24852deb7664177df7876e90bf20f",
+    "result": "5cb0b06c606632d8402cf8d0d57fb409c60ebfc3f24c56363d6a2449514e964c",
+    "environment": "70b333ccec9e8f8691023ccb335bc9e4b132dd43913c0894d1e8d023577a7b84"
+  },
+  "environment": {
+    "graderprobe_version": "0.8.0",
+    "python": "3.13.3",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "seed": 0,
+    "utc": "2026-10-09T15:59:13Z",
+    "task_id": "deepeval-3338-upstream-trial",
+    "network_policy": "unrestricted",
+    "inherit_secrets": false,
+    "max_workers": 1,
+    "pid": 22040
+  }
+}

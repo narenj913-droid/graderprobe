@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graderprobe.dev/schemas/contract_lock.schema.json",
+  "title": "GraderProbe evaluation contract lock",
+  "type": "object",
+  "required": ["schema", "graderprobe_version", "repository", "locked_commit", "task_root", "task_inventory", "anchors", "lock_fingerprint"],
+  "properties": {
+    "schema": {"const": "graderprobe.contract_lock.v1"},
+    "graderprobe_version": {"type": "string"},
+    "repository": {"type": "string"},
+    "locked_commit": {"type": "string", "minLength": 7},
+    "created_at": {"type": "string"},
+    "task_root": {"type": "string"},
+    "task_inventory": {"type": "array"},
+    "anchors": {"type": "array"},
+    "lock_fingerprint": {"type": "string", "pattern": "^sha256:"}
+  },
+  "additionalProperties": true
+}

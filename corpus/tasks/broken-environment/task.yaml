@@ -1,0 +1,27 @@
+id: broken-environment
+title: Evaluator imports a missing module
+failure_mode: broken_test_environment
+description: |
+  add(a, b) returns a + b. The evaluator environment is broken.
+requirements:
+  - Integer addition.
+oracle:
+  reference: solution.py
+  expected_behavior: a+b
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/sub.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+  interpretation:
+    verdict_protocol: marker
+probes:
+  invariance:
+    - id: INV-01
+      description: Comment
+      transform: {kind: insert_comments, comment: "add"}
+  sensitivity:
+    - id: SEN-01
+      description: Subtract instead
+      transform: {kind: replace_file, source: alternatives/sub.py}
+provenance: {version: "0.1.0"}

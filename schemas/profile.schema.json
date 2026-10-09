@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graderprobe.dev/schemas/profile.schema.json",
+  "title": "Boundary Integrity Profile",
+  "type": "object",
+  "required": ["schema", "task_id", "baseline", "metrics", "verdict", "findings", "pairs"],
+  "properties": {
+    "schema": { "const": "graderprobe.boundary_integrity_profile.v1" },
+    "task_id": { "type": "string" },
+    "verdict": {
+      "enum": [
+        "BOUNDARY_OK",
+        "BOUNDARY_WARNING",
+        "BOUNDARY_FAIL",
+        "BASELINE_INVALID",
+        "INCONCLUSIVE"
+      ]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "evidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "evidence": { "type": "object" }
+        }
+      }
+    }
+  }
+}

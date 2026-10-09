@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://graderprobe.dev/schemas/certificate.schema.json",
+  "title": "GraderProbe evidence certificate",
+  "type": "object",
+  "required": ["schema", "disclaimer", "hashes", "task_id"],
+  "properties": {
+    "schema": { "const": "graderprobe.certificate.v1" },
+    "disclaimer": { "type": "string" },
+    "task_id": { "type": "string" },
+    "hashes": {
+      "type": "object",
+      "required": ["task_tree_digest", "result"],
+      "properties": {
+        "task_tree_digest": { "type": "string", "minLength": 64, "maxLength": 64 },
+        "result": { "type": "string", "minLength": 64, "maxLength": 64 }
+      }
+    }
+  }
+}

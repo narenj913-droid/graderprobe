@@ -1,0 +1,12 @@
+instance_id: example-stub-1
+problem_statement: Sort a list of integers.
+test_cmd: ["python", "evaluator.py"]
+gold_patch: solution.py
+expected_behavior: non-decreasing copy
+implementation_freedom:
+  - Any correct sort is valid.
+probes:
+  invariance:
+    - id: INV-01
+      description: comment
+      transform: {kind: insert_comments, comment: "stub"}

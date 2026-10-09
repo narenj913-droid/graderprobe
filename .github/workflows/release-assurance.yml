@@ -1,0 +1,104 @@
+name: release-assurance
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      semantic:
+        description: Enable bounded OpenAI semantic review
+        required: false
+        default: false
+        type: boolean
+      model:
+        description: Optional OpenAI model override (otherwise use repository variable GRADERPROBE_OPENAI_MODEL)
+        required: false
+        default: ""
+jobs:
+  assurance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: pip install -e .
+      - name: Require committed evaluation contract lock
+        run: |
+          set -euo pipefail
+          if [ ! -f graderprobe.lock.json ]; then
+            echo "graderprobe.lock.json is required. Generate it from a clean, committed revision with: graderprobe lock . --task-root corpus/tasks --out graderprobe.lock.json --anchors 2" >&2
+            exit 2
+          fi
+      - name: Verify evaluation contract lock
+        run: graderprobe verify-lock . --lock graderprobe.lock.json --workers 1 --execution-slots 1
+
+      - name: Release assurance
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GRADERPROBE_OPENAI_MODEL: ${{ inputs.model || vars.GRADERPROBE_OPENAI_MODEL }}
+          GRADERPROBE_EVENT_NAME: ${{ github.event_name }}
+          GRADERPROBE_SEMANTIC_INPUT: ${{ github.event.inputs.semantic || 'false' }}
+          GRADERPROBE_BASE_REF: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          set -uo pipefail
+          SEMANTIC_ARGS=()
+          if [ "$GRADERPROBE_EVENT_NAME" = "workflow_dispatch" ] && [ "$GRADERPROBE_SEMANTIC_INPUT" = "true" ]; then
+            if [ -z "${OPENAI_API_KEY:-}" ]; then
+              echo "Semantic review was explicitly requested but OPENAI_API_KEY is not configured."
+              exit 2
+            fi
+            if [ -z "${GRADERPROBE_OPENAI_MODEL:-}" ]; then
+              echo "Semantic review was explicitly requested but no model is configured. Set the model input or GRADERPROBE_OPENAI_MODEL repository variable."
+              exit 2
+            fi
+            SEMANTIC_ARGS=(--semantic)
+          fi
+          BASE="${GRADERPROBE_BASE_REF:-}"
+          if [ -z "$BASE" ] || ! git rev-parse "$BASE" >/dev/null 2>&1; then BASE="HEAD^"; fi
+          if ! git rev-parse "$BASE" >/dev/null 2>&1; then echo "No comparable Git base revision is available" >&2; exit 2; fi
+          set +e
+          graderprobe release-audit . --task-root corpus/tasks --base-ref "$BASE" --head-ref HEAD --auto "${SEMANTIC_ARGS[@]}" --out graderprobe-out/release --sarif-out graderprobe-out/release/release-assurance.sarif
+          rc=$?
+          set -e
+          if [ -f graderprobe-out/release/release-assurance.md ]; then cat graderprobe-out/release/release-assurance.md; fi
+          exit "$rc"
+      - name: Upload assurance bundle
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: graderprobe-release-assurance
+          path: graderprobe-out/release
+
+      - name: Upload release SARIF
+        if: ${{ always() && hashFiles('graderprobe-out/release/release-assurance.sarif') != '' }}
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+        with:
+          sarif_file: graderprobe-out/release/release-assurance.sarif
+
+
+      - name: Post PR assurance summary
+        if: ${{ always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && hashFiles('graderprobe-out/release/release-assurance.md') != '' }}
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('graderprobe-out/release/release-assurance.md', 'utf8');
+            const marker = '<!-- graderprobe-release-assurance -->';
+            const comment = `${marker}\n${body}`;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, per_page: 100
+            });
+            const existing = comments.find(c => c.user?.type === 'Bot' && c.body?.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body: comment});
+            } else {
+              await github.rest.issues.createComment({owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, body: comment});
+            }

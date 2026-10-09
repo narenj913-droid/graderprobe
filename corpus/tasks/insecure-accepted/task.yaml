@@ -1,0 +1,37 @@
+id: insecure-accepted
+title: Path traversal accepted
+failure_mode: incorrect_security_behavior_accepted
+description: |
+  read_sandbox(root, relative) must read a file under root. Paths that escape
+  root via .. or absolute fragments must raise PermissionError.
+requirements:
+  - Read UTF-8 text of files inside root.
+  - Reject path traversal.
+implementation_freedom:
+  - pathlib or os.path are both valid.
+failure_conditions:
+  - Following .. out of the sandbox.
+oracle:
+  reference: solution.py
+  expected_behavior: jailed read
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/no_jail.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: pathlib implementation
+      transform: {kind: replace_file, source: alternatives/pathlib_impl.py}
+    - id: INV-02
+      description: Expand return
+      transform: {kind: expand_return, name: text}
+  sensitivity:
+    - id: SEN-01
+      description: Remove the jail check
+      transform: {kind: replace_file, source: alternatives/no_jail.py}
+    - id: SEN-02
+      description: Only block the literal prefix ../
+      transform: {kind: replace_file, source: alternatives/prefix_only.py}
+provenance: {version: "0.1.0"}

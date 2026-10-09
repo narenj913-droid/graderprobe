@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+graderprobe-out/
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+# GraderProbe runtime outputs
+graderprobe-out/
+*.sarif
+*.whl
+*.zip
+.env
+.env.*
+!.env.example

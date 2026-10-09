@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "returncode": 10,
+    "stderr": "DEEP_EVAL_IMPORT_ERROR=ModuleNotFoundError: No module named 'deepeval'\n",
+    "stdout": ""
+  },
+  "executed_repository": "<LOCAL_WORKSPACE>",
+  "executed_revision": null,
+  "expected_public_pair": [
+    0.5,
+    0.6667
+  ],
+  "issue": "https://github.com/confident-ai/deepeval/issues/3338",
+  "project": "DeepEval",
+  "reported_revision": "d65c8da",
+  "status": "dependency_or_import_error",
+  "transformed": {
+    "returncode": 10,
+    "stderr": "DEEP_EVAL_IMPORT_ERROR=ModuleNotFoundError: No module named 'deepeval'\n",
+    "stdout": ""
+  }
+}

@@ -1,0 +1,43 @@
+id: deepeval-3025-upstream-trial
+title: DeepEval #3025 upstream DAG scheduling/order trial
+description: |
+  Execute public DeepEval issue #3025 against the installed upstream package and
+  test whether the same reachable DAG judgements produce a stable score when
+  declaration order or sync/async execution mode changes.
+failure_mode: DAGMetric score may depend on declaration order and sync versus async completion order
+requirements:
+  - The same reachable judgements must produce a stable score regardless of branch declaration order.
+  - The same reachable judgements must produce a stable score regardless of sync versus async execution.
+  - No real model or API key is required; the issue reproduction uses a deterministic fake judge.
+constraints:
+  - This task executes the installed upstream DeepEval package; it is not a local surrogate.
+  - Upstream execution must be performed by an authorized maintainer/developer in an environment where DeepEval is installed.
+candidate_file: solution.py
+oracle:
+  reference: solution.py
+  expected_behavior: DAG score invariance under declaration-order and scheduling transformations
+  expected_baseline_verdict: PASS
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 30
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 10
+probes:
+  invariance:
+    - id: INV-UPSTREAM-DAG-SYNC-ASYNC-01
+      description: Switch sync/async execution while preserving the same graph and judge outputs.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/sync_same_order.py}
+    - id: INV-UPSTREAM-DAG-DECLARATION-ORDER-01
+      description: Reverse the two reachable branch declaration order while preserving the same graph judgements.
+      target: solution.py
+      transform: {kind: replace_file, source: alternatives/shallow_first_async.py}
+provenance:
+  source_project: DeepEval
+  source_repository: https://github.com/confident-ai/deepeval
+  source_issue: https://github.com/confident-ai/deepeval/issues/3025
+  source_commit_referenced_by_issue: c6d82ce
+  reproduction_status: upstream_trial_bundle
+  external_validation_status: pending_authorized_upstream_execution
+  generated_at: 2026-10-06

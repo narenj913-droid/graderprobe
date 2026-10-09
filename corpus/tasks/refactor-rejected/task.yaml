@@ -1,0 +1,36 @@
+id: refactor-rejected
+title: Harmless helper extraction rejected
+failure_mode: correct_refactor_rejected
+description: |
+  fizzbuzz(n) returns "FizzBuzz" if n is divisible by 15, "Fizz" if by 3,
+  "Buzz" if by 5, otherwise the decimal representation of n.
+requirements:
+  - Standard fizzbuzz mapping for integer n.
+implementation_freedom:
+  - Helpers, tuples, or match/case are valid.
+failure_conditions:
+  - Wrong token for a multiple of 3, 5, or 15.
+oracle:
+  reference: solution.py
+  expected_behavior: fizzbuzz
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/swap.py
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Extract a helper function
+      transform: {kind: replace_file, source: alternatives/helper.py}
+    - id: INV-02
+      description: wrap_function decomposition
+      transform: {kind: wrap_function, function: fizzbuzz, helper: fizzbuzz_impl}
+  sensitivity:
+    - id: SEN-01
+      description: Swap Fizz and Buzz
+      transform: {kind: replace_file, source: alternatives/swap.py}
+    - id: SEN-02
+      description: Drop FizzBuzz special case
+      transform: {kind: replace_file, source: alternatives/no_combo.py}
+provenance: {version: "0.1.0"}

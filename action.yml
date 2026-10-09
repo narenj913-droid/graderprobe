@@ -1,0 +1,141 @@
+name: GraderProbe
+description: Run counterfactual boundary tests against an evaluator task
+author: GraderProbe authors
+branding:
+  icon: git-commit
+  color: gray-dark
+inputs:
+  task:
+    description: Path to a native GraderProbe task.yaml
+    required: true
+  fail-on:
+    description: CI failure threshold (none, high, medium, any)
+    required: false
+    default: high
+  output-dir:
+    description: Directory for evidence artifacts
+    required: false
+    default: graderprobe-out
+  python-version:
+    description: Python version
+    required: false
+    default: "3.11"
+  comment-pr:
+    description: If true, comment a summary on the pull request
+    required: false
+    default: "false"
+  upload-sarif:
+    description: "If true, upload SARIF results to GitHub code scanning (requires security-events: write)"
+    required: false
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install GraderProbe
+      shell: bash
+      env:
+        GRADERPROBE_ACTION_PATH: ${{ github.action_path }}
+      run: pip install "$GRADERPROBE_ACTION_PATH"
+    - name: Validate action inputs
+      shell: bash
+      env:
+        GRADERPROBE_TASK: ${{ inputs.task }}
+        GRADERPROBE_FAIL_ON: ${{ inputs.fail-on }}
+        GRADERPROBE_OUTPUT_DIR: ${{ inputs.output-dir }}
+        GRADERPROBE_COMMENT_PR: ${{ inputs.comment-pr }}
+        GRADERPROBE_UPLOAD_SARIF: ${{ inputs.upload-sarif }}
+      run: |
+        set -euo pipefail
+        case "$GRADERPROBE_FAIL_ON" in
+          none|high|medium|any) ;;
+          *) echo "Invalid fail-on value: expected none, high, medium, or any." >&2; exit 2 ;;
+        esac
+        case "$GRADERPROBE_COMMENT_PR" in true|false) ;; *) echo "comment-pr must be true or false." >&2; exit 2 ;; esac
+        case "$GRADERPROBE_UPLOAD_SARIF" in true|false) ;; *) echo "upload-sarif must be true or false." >&2; exit 2 ;; esac
+        python - <<'PY'
+        import os
+        import sys
+        from pathlib import Path
+
+        workspace = Path(os.environ["GITHUB_WORKSPACE"]).resolve()
+
+        def inside_workspace(raw: str, label: str, *, must_exist: bool) -> Path:
+            if not raw or "\x00" in raw:
+                raise SystemExit(f"{label} must be a non-empty path")
+            candidate = Path(raw)
+            resolved = (candidate if candidate.is_absolute() else workspace / candidate).resolve()
+            if resolved != workspace and workspace not in resolved.parents:
+                raise SystemExit(f"{label} must stay inside GITHUB_WORKSPACE")
+            if must_exist and not resolved.is_file():
+                raise SystemExit(f"{label} must name an existing file in GITHUB_WORKSPACE")
+            if not must_exist and resolved == workspace:
+                raise SystemExit("output-dir must not be the repository root")
+            return resolved
+
+        inside_workspace(os.environ["GRADERPROBE_TASK"], "task", must_exist=True)
+        inside_workspace(os.environ["GRADERPROBE_OUTPUT_DIR"], "output-dir", must_exist=False)
+        PY
+    - name: Run boundary probes
+      shell: bash
+      env:
+        GRADERPROBE_TASK: ${{ inputs.task }}
+        GRADERPROBE_FAIL_ON: ${{ inputs.fail-on }}
+        GRADERPROBE_OUTPUT_DIR: ${{ inputs.output-dir }}
+      run: |
+        set -euo pipefail
+        mkdir -p -- "$GRADERPROBE_OUTPUT_DIR"
+        set +e
+        graderprobe run "$GRADERPROBE_TASK" \
+          --out "$GRADERPROBE_OUTPUT_DIR" \
+          --fail-on "$GRADERPROBE_FAIL_ON"
+        rc=$?
+        set -e
+        if [ ! -f "$GRADERPROBE_OUTPUT_DIR/profile.json" ]; then
+          echo "GraderProbe did not produce profile.json; cannot create SARIF." >&2
+          if [ "$rc" -eq 0 ]; then exit 2; else exit "$rc"; fi
+        fi
+        set +e
+        graderprobe sarif "$GRADERPROBE_OUTPUT_DIR/profile.json" \
+          --out "$GRADERPROBE_OUTPUT_DIR/results.sarif"
+        sarif_rc=$?
+        set -e
+        if [ "$rc" -ne 0 ]; then exit "$rc"; fi
+        exit "$sarif_rc"
+    - name: Upload SARIF
+      if: ${{ inputs.upload-sarif == 'true' }}
+      uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
+      with:
+        sarif_file: ${{ inputs.output-dir }}/results.sarif
+
+    - name: Upload evidence
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      if: always()
+      with:
+        name: graderprobe-evidence
+        path: ${{ inputs.output-dir }}
+    - name: Comment on pull request
+      if: ${{ inputs.comment-pr == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
+      uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+      env:
+        GRADERPROBE_OUTPUT_DIR: ${{ inputs.output-dir }}
+      with:
+        script: |
+          const fs = require('fs');
+          const dir = process.env.GRADERPROBE_OUTPUT_DIR || 'graderprobe-out';
+          let body = 'GraderProbe finished. See the uploaded evidence artifact.';
+          try {
+            const md = fs.readFileSync(dir + '/profile.md', 'utf8');
+            body = md.slice(0, 60000);
+          } catch (err) {
+            body += '\n(profile.md not found)';
+          }
+          github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            body,
+          });

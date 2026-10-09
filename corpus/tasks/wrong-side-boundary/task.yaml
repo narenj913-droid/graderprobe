@@ -1,0 +1,40 @@
+id: wrong-side-boundary
+title: Inclusive age boundary missed
+failure_mode: wrong_side_boundary_condition
+description: |
+  is_adult(age) is True if and only if age >= 18.
+requirements:
+  - 18 is adult.
+  - 17 is not adult.
+implementation_freedom:
+  - Any equivalent comparison is valid.
+failure_conditions:
+  - Treating 18 as not adult.
+oracle:
+  reference: solution.py
+  expected_behavior: age >= 18
+  expected_baseline_verdict: PASS
+  known_invalid: alternatives/strict.py
+behavior_validator:
+  command: ["python", "behavior_validator.py"]
+  timeout_seconds: 5
+
+evaluator:
+  command: ["python", "evaluator.py"]
+  timeout_seconds: 6
+probes:
+  invariance:
+    - id: INV-01
+      description: Rewrite as not age < 18
+      transform: {kind: replace_file, source: alternatives/rewritten.py}
+    - id: INV-02
+      description: Expand the return
+      transform: {kind: expand_return, name: result}
+  sensitivity:
+    - id: SEN-01
+      description: Use a strict greater-than (18 excluded)
+      transform: {kind: replace_file, source: alternatives/strict.py}
+    - id: SEN-02
+      description: Threshold 21
+      transform: {kind: replace_file, source: alternatives/threshold21.py}
+provenance: {version: "0.1.0"}
