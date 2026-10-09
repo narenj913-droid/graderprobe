@@ -16,6 +16,8 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.11"
@@ -28,7 +30,7 @@ jobs:
         run: |
           set -uo pipefail
           BASE="${GRADERPROBE_BASE_REF:-}"
-          if [ -z "$BASE" ] || ! git rev-parse "$BASE" >/dev/null 2>&1; then BASE="HEAD^"; fi
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ] || ! git rev-parse "$BASE" >/dev/null 2>&1; then BASE="HEAD^"; fi
           if ! git rev-parse "$BASE" >/dev/null 2>&1; then echo "No comparable Git base revision is available" >&2; exit 2; fi
           set +e
           graderprobe audit corpus/tasks --changed-only --base-ref "$BASE" --out graderprobe-out/audit --sarif-out graderprobe-out/audit/results.sarif --auto --auto-sensitive
