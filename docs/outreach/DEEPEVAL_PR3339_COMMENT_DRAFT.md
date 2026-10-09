@@ -34,8 +34,11 @@ Running the 5 newly added tests in `tests/test_tool_correctness_metric.py`:
   - `test_exact_call_matches_first_over_partial_call_when_multiple_calls_share_name` (FAIL on base)
   - `test_exact_call_matches_first_when_candidates_are_reversed` (FAIL on base)
 
-### 3. Conclusion
+### 3. Conclusion & Evidence Artifacts
 The bipartite optimal assignment implementation in PR #3339 cleanly fixes the greedy matching pathology reported in #3338 without overfitting or hardcoded special cases. All evaluations ran locally and deterministically without external API calls.
+
+Reproduction commands, exact revision IDs, test logs, JSON outputs, and SHA-256 manifest are available in the public release repository:
+https://github.com/narenj913-droid/graderprobe/tree/main/artifacts/phase5/sanitized
 ```
 
 ---
