@@ -1,0 +1,38 @@
+{
+  "schema": "graderprobe.certificate.v1",
+  "disclaimer": "This manifest records hashes of artifacts that were executed. It is not a cryptographic proof of evaluator correctness and does not use a novel signature standard.",
+  "created_utc": "2026-10-10T17:10:14Z",
+  "graderprobe_version": "0.8.0",
+  "task_id": "deepeval-sweep-seed-3338-case-023",
+  "profile_verdict": "BOUNDARY_OK",
+  "hashes": {
+    "task_tree": {
+      "alternatives/reversed_expected.py": "86c87e25f09ddaad0fa1f4f6748ff36fa1898f4ee5fd098b690995d180299732",
+      "behavior_validator.py": "9d6002a12f8fd891c92997b1bb41dc0662f153802e4d61d2c81a350cbdf5485e",
+      "evaluator.py": "2c6ca5d1199f01981c0cfd1dca05fcfdadd6ffc85738877a701245cbefb27f95",
+      "solution.py": "b66d3c9687d24f66de6c4f9f576ce2919da2cbd7a4004bb51032aa47bb930a36",
+      "SWEEP_CASE_EVIDENCE.json": "80bf0abb1d3c43ba6cbff29be8e70a1b8be2064f9c83fdefaca089ad7418f63e",
+      "task.yaml": "dce7971d864d72a7c3ffe760195a4f4f47d67a631c2150f91e5a398c5f3525f1"
+    },
+    "task_tree_digest": "1337345e65b8d1d7f4d87b299c592272f823b5c2426d7ae72edc2ac9745a80e9",
+    "task_id": "87efe42ec280de662228927dd3efe911bfbf96c10ed440d4250024237c1a15d1",
+    "evaluator_contract": "82719f5914d6fd472e7eec08cf906b23c0f1427d908cea3418a55e24dec9f61b",
+    "behavior_validator_contract": "7345af08c6a0f4350dd57354df105d518c5daf6aeb968689e9efd114641c3809",
+    "probe_ids": "22aafdef6fd6c190021e1e72c8674d6da5d00a32799fecd2eacc47fdbb34f82b",
+    "probe_catalog": "fc745d3516644d85e0845187d2696e2364153e326c0c7bf2efb03e3388805bb8",
+    "result": "d5772a832b21dfc4933c5b1a23ec5d530efdbfc030b4cc069c647b6a4d5006a5",
+    "environment": "39c88ea389092953797635011ece4d7c06b5fee4ade8c74db9ace973c18bffec"
+  },
+  "environment": {
+    "graderprobe_version": "0.8.0",
+    "python": "3.13.3",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "seed": 0,
+    "utc": "2026-10-10T17:10:10Z",
+    "task_id": "deepeval-sweep-seed-3338-case-023",
+    "network_policy": "unrestricted",
+    "inherit_secrets": false,
+    "max_workers": 1,
+    "pid": 13236
+  }
+}

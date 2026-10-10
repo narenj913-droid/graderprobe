@@ -1,0 +1,39 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\python.exe -c 
+from deepeval.metrics import ToolCorrectnessMetric
+from deepeval.test_case import LLMTestCase, ToolCall, ToolCallParams
+
+c1 = ToolCall(name="book", input_parameters={"id": 1})
+c2 = ToolCall(name="search", input_parameters={"q": "x"})
+
+def run_metric(ordering):
+    m = ToolCorrectnessMetric(
+        threshold=0.60,
+        async_mode=False,
+        evaluation_params=[ToolCallParams.INPUT_PARAMETERS],
+        should_consider_ordering=ordering,
+        should_exact_match=False
+    )
+    tc = LLMTestCase(
+        input="test", actual_output="test",
+        tools_called=[c2, c1], expected_tools=[c1, c2]
+    )
+    m.measure(tc, _show_indicator=False)
+    return m.score
+
+score_unordered = run_metric(False)
+score_ordered = run_metric(True)
+print(f"score_unordered: {score_unordered}")
+print(f"score_ordered: {score_ordered}")
+print(f"ordering_control_passed (unordered > ordered): {score_unordered > score_ordered}")
+
+CWD: D:\deepeval_sweep_workspace\worktree_base
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_base
+EXIT_CODE: 0
+ELAPSED_SEC: 3.63
+
+--- STDOUT ---
+score_unordered: 1.0
+score_ordered: 0.5
+ordering_control_passed (unordered > ordered): True
+
+--- STDERR ---

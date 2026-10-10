@@ -1,0 +1,11 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\python.exe -c import deepeval, sys; print(f'deepeval.__file__: {deepeval.__file__}'); print(f'sys.path[0]: {sys.path[0]}')
+CWD: D:\deepeval_sweep_workspace\worktree_base
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_base
+EXIT_CODE: 0
+ELAPSED_SEC: 2.519
+
+--- STDOUT ---
+deepeval.__file__: D:\deepeval_sweep_workspace\worktree_base\deepeval\__init__.py
+sys.path[0]: 
+
+--- STDERR ---

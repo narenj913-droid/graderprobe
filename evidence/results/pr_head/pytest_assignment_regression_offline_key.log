@@ -1,0 +1,12 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\pytest.exe -q D:\deepeval_sweep_workspace\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py -k TestToolCorrectnessMetricAssignment
+CWD: D:\deepeval_sweep_workspace\worktree_pr
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_pr
+EXIT_CODE: 0
+ELAPSED_SEC: 4.491
+
+--- STDOUT ---
+.....                                                                    [100%]Running teardown with pytest sessionfinish...
+
+5 passed, 7 deselected in 0.20s
+
+--- STDERR ---

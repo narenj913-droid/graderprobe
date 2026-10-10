@@ -1,0 +1,34 @@
+{
+  "tasks": [
+    {
+      "task_id": "deepeval-sweep-issue-3338-original",
+      "verdict": "BOUNDARY_FAIL",
+      "findings": 1,
+      "false_acceptance_count": 0,
+      "false_rejection_count": 1,
+      "inconclusive_count": 0,
+      "error": null
+    },
+    {
+      "task_id": "deepeval-sweep-same-name-partial-assignment-3x3",
+      "verdict": "BOUNDARY_FAIL",
+      "findings": 1,
+      "false_acceptance_count": 0,
+      "false_rejection_count": 1,
+      "inconclusive_count": 0,
+      "error": null
+    },
+    {
+      "task_id": "deepeval-sweep-seed-3338-case-023",
+      "verdict": "BOUNDARY_FAIL",
+      "findings": 1,
+      "false_acceptance_count": 0,
+      "false_rejection_count": 1,
+      "inconclusive_count": 0,
+      "error": null
+    }
+  ],
+  "task_workers": 1,
+  "changed_only": false,
+  "base_ref": null
+}

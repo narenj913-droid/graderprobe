@@ -1,0 +1,37 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\pytest.exe -q D:\deepeval_sweep_workspace\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py -k TestToolCorrectnessMetricAssignment
+CWD: D:\deepeval_sweep_workspace\worktree_base
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_base
+EXIT_CODE: 0
+ELAPSED_SEC: 3.253
+
+--- STDOUT ---
+sssss                                                                    [100%]Running teardown with pytest sessionfinish...
+
+Test 
+tests/test_metrics/test_tool_correctness_metric.py::TestToolCorrectnessMetricAs
+signment::test_score_does_not_depend_on_expected_order was skipped. Reason: 
+('D:\\deepeval_sweep_workspace\\worktree_pr\\tests\\test_metrics\\test_tool_cor
+rectness_metric.py', 167, 'Skipped: OPENAI_API_KEY is not set')
+Test 
+tests/test_metrics/test_tool_correctness_metric.py::TestToolCorrectnessMetricAs
+signment::test_partial_credit_uses_best_pairing was skipped. Reason: 
+('D:\\deepeval_sweep_workspace\\worktree_pr\\tests\\test_metrics\\test_tool_cor
+rectness_metric.py', 172, 'Skipped: OPENAI_API_KEY is not set')
+Test 
+tests/test_metrics/test_tool_correctness_metric.py::TestToolCorrectnessMetricAs
+signment::test_score_does_not_depend_on_called_order was skipped. Reason: 
+('D:\\deepeval_sweep_workspace\\worktree_pr\\tests\\test_metrics\\test_tool_cor
+rectness_metric.py', 178, 'Skipped: OPENAI_API_KEY is not set')
+Test 
+tests/test_metrics/test_tool_correctness_metric.py::TestToolCorrectnessMetricAs
+signment::test_more_calls_than_expected was skipped. Reason: 
+('D:\\deepeval_sweep_workspace\\worktree_pr\\tests\\test_metrics\\test_tool_cor
+rectness_metric.py', 183, 'Skipped: OPENAI_API_KEY is not set')
+Test 
+tests/test_metrics/test_tool_correctness_metric.py::TestToolCorrectnessMetricAs
+signment::test_fewer_calls_than_expected was skipped. Reason: 
+('D:\\deepeval_sweep_workspace\\worktree_pr\\tests\\test_metrics\\test_tool_cor
+rectness_metric.py', 187, 'Skipped: OPENAI_API_KEY is not set')
+5 skipped, 7 deselected in 0.12s
+
+--- STDERR ---

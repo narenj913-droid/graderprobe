@@ -1,0 +1,244 @@
+{
+  "schema": "graderprobe.boundary_integrity_profile.v1",
+  "task_id": "deepeval-sweep-issue-3338-original",
+  "task_title": "DeepEval sweep case: issue-3338-original",
+  "baseline": {
+    "ok": true,
+    "verdict": "PASS",
+    "reason": "baseline accepted",
+    "runs": [
+      {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "DEEPEVAL_VERSION=4.2.4\r\nSCORE=0.666666666667\r\nTHRESHOLD=0.600000000000\r\nVERDICT=PASS\r\n",
+        "stderr": "",
+        "duration_ms": 4788.682,
+        "timed_out": false,
+        "workspace": "<TEMP>\\gp-base-deepeval-sweep-issue-3338-original-jqxfnhii\\work",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "b83501aeaf1e5fde6392f3be7e25bac47b9e22a43c86fedfee6d612ed6a2e277",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "82719f5914d6fd472e7eec08cf906b23c0f1427d908cea3418a55e24dec9f61b"
+      }
+    ],
+    "known_invalid": null,
+    "behavior_runs": [
+      {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "ORACLE_SCORE_BASELINE=0.666666666667\r\nORACLE_SCORE_REVERSED=0.666666666667\r\nORACLE_ORDER_INVARIANCE=OK\r\n",
+        "stderr": "",
+        "duration_ms": 103.78,
+        "timed_out": false,
+        "workspace": "<TEMP>\\gp-behavior-base-deepeval-sweep-issue-3338-original-kxb5newm\\work",
+        "command": [
+          "python",
+          "behavior_validator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "b40db89ab70302fbe99a00acf5552d1cbc4ae2f8ce520e7ae80caaf205a5dcca",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "9c5ba9025c3d8f707d6c092799e728aa053b7d505db1ecc1c6fd61e1daf3838a"
+      }
+    ],
+    "behavior_ok": true,
+    "behavior_reason": "reference behavior accepted",
+    "harness_ok": true,
+    "output_stable": true,
+    "output_stability_reason": "stdout/stderr digests and exit code stable across repeats"
+  },
+  "metrics": {
+    "invariance_executed": 1,
+    "invariance_preserved": 0,
+    "sensitivity_executed": 0,
+    "sensitivity_detected": 0,
+    "false_acceptance_count": 0,
+    "false_rejection_count": 1,
+    "inconclusive_count": 0,
+    "probe_execution_error_rate": 0.0,
+    "invariance_preservation_rate": 0.0,
+    "sensitivity_detection_rate": null,
+    "optional_boundary_stability": null,
+    "optional_boundary_stability_note": "Optional summary only. Not a benchmark quality score. Defined as the unweighted mean of invariance preservation and sensitivity detection rates when both are defined."
+  },
+  "verdict": "BOUNDARY_FAIL",
+  "findings": [
+    {
+      "id": "PAIR-001",
+      "type": "false_rejection",
+      "severity": "high",
+      "probe_id": "INV-ISSUE_3338_ORIGINAL",
+      "summary": "INV-ISSUE_3338_ORIGINAL: confirmed false rejection (PASS->FAIL) after Reverse expected tool order while preserving the same unordered expected multiset and the called trajectory.",
+      "evidence": {
+        "baseline": "PASS",
+        "mutant": "FAIL",
+        "expected_relation": "preserve",
+        "transformation": "replace_file",
+        "description": "Reverse expected tool order while preserving the same unordered expected multiset and the called trajectory.",
+        "probe_class": "invariance",
+        "method": "deterministic",
+        "target": "solution.py",
+        "evidence_level": "SMOKE_VALIDATED",
+        "original_behavior_verdict": "PASS",
+        "transformed_behavior_verdict": "PASS"
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "pair_id": "PAIR-001",
+      "probe_id": "INV-ISSUE_3338_ORIGINAL",
+      "probe_class": "invariance",
+      "method": "deterministic",
+      "transformation": {
+        "kind": "replace_file",
+        "params": {
+          "source": "alternatives/reversed_expected.py"
+        },
+        "description": "Reverse expected tool order while preserving the same unordered expected multiset and the called trajectory."
+      },
+      "expected_relation": "preserve",
+      "baseline_verdict": "PASS",
+      "actual_verdict": "FAIL",
+      "relation_held": false,
+      "finding": {
+        "id": "PAIR-001",
+        "type": "false_rejection",
+        "severity": "high",
+        "probe_id": "INV-ISSUE_3338_ORIGINAL",
+        "summary": "INV-ISSUE_3338_ORIGINAL: confirmed false rejection (PASS->FAIL) after Reverse expected tool order while preserving the same unordered expected multiset and the called trajectory.",
+        "evidence": {
+          "baseline": "PASS",
+          "mutant": "FAIL",
+          "expected_relation": "preserve",
+          "transformation": "replace_file",
+          "description": "Reverse expected tool order while preserving the same unordered expected multiset and the called trajectory.",
+          "probe_class": "invariance",
+          "method": "deterministic",
+          "target": "solution.py",
+          "evidence_level": "SMOKE_VALIDATED",
+          "original_behavior_verdict": "PASS",
+          "transformed_behavior_verdict": "PASS"
+        }
+      },
+      "original_hash": "f41ae227d7395b012bc101497334ec40efb16fae2dcf0fd4e0c77dc81e01f3fc",
+      "transformed_hash": "6eac0313038a1cb70a6dd4024223c6b7411e149941840e803f29a6792283ca4e",
+      "evidence": {
+        "level": "SMOKE_VALIDATED",
+        "original_behavior": {
+          "verdict": "PASS",
+          "exit_code": 0,
+          "stdout": "ORACLE_SCORE_BASELINE=0.666666666667\r\nORACLE_SCORE_REVERSED=0.666666666667\r\nORACLE_ORDER_INVARIANCE=OK\r\n",
+          "stderr": "",
+          "duration_ms": 103.78,
+          "timed_out": false,
+          "workspace": "<TEMP>\\gp-behavior-base-deepeval-sweep-issue-3338-original-kxb5newm\\work",
+          "command": [
+            "python",
+            "behavior_validator.py"
+          ],
+          "error_message": "",
+          "attempt": 1,
+          "cache_hit": false,
+          "cache_key": "",
+          "stdout_sha256": "b40db89ab70302fbe99a00acf5552d1cbc4ae2f8ce520e7ae80caaf205a5dcca",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution_contract_sha256": "9c5ba9025c3d8f707d6c092799e728aa053b7d505db1ecc1c6fd61e1daf3838a"
+        },
+        "transformed_behavior": {
+          "verdict": "PASS",
+          "exit_code": 0,
+          "stdout": "ORACLE_SCORE_BASELINE=0.666666666667\r\nORACLE_SCORE_REVERSED=0.666666666667\r\nORACLE_ORDER_INVARIANCE=OK\r\n",
+          "stderr": "",
+          "duration_ms": 95.993,
+          "timed_out": false,
+          "workspace": "<TEMP>\\gp-deepeval-sweep-issue-3338-original-INV-ISSUE_3338_ORIGINAL-41snf2o6\\work",
+          "command": [
+            "python",
+            "behavior_validator.py"
+          ],
+          "error_message": "",
+          "attempt": 1,
+          "cache_hit": false,
+          "cache_key": "",
+          "stdout_sha256": "b40db89ab70302fbe99a00acf5552d1cbc4ae2f8ce520e7ae80caaf205a5dcca",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "execution_contract_sha256": "9c5ba9025c3d8f707d6c092799e728aa053b7d505db1ecc1c6fd61e1daf3838a"
+        },
+        "minimal_counterfactual": null
+      },
+      "original_candidate": "\"\"\"Candidate fixture derived from actual DeepEval sweep case issue-3338-original.\n\nThe selected baseline ordering is one observed PASS permutation from the sweep;\nreversing EXPECTED while keeping CALLED fixed is the metamorphic transformation.\n\"\"\"\nEXPECTED = [{'name': 'book', 'input_parameters': {'a': 1, 'b': 1, 'c': 2}}, {'name': 'book', 'input_parameters': {'a': 1, 'b': 1, 'c': 1}}]\nCALLED = [{'name': 'book', 'input_parameters': {'a': 1, 'b': 1, 'c': 2}}, {'name': 'book', 'input_parameters': {'a': 1, 'b': 5, 'c': 5}}]\nTHRESHOLD = 0.60\nSHOULD_EXACT_MATCH = False\nSHOULD_CONSIDER_ORDERING = False\n",
+      "transformed_candidate": "\"\"\"Counterfactual: reverse expected tool order; keep called trajectory unchanged.\"\"\"\nEXPECTED = [{'name': 'book', 'input_parameters': {'a': 1, 'b': 1, 'c': 1}}, {'name': 'book', 'input_parameters': {'a': 1, 'b': 1, 'c': 2}}]\nCALLED = [{'name': 'book', 'input_parameters': {'a': 1, 'b': 1, 'c': 2}}, {'name': 'book', 'input_parameters': {'a': 1, 'b': 5, 'c': 5}}]\nTHRESHOLD = 0.60\nSHOULD_EXACT_MATCH = False\nSHOULD_CONSIDER_ORDERING = False\n",
+      "baseline_execution": {
+        "verdict": "PASS",
+        "exit_code": 0,
+        "stdout": "DEEPEVAL_VERSION=4.2.4\r\nSCORE=0.666666666667\r\nTHRESHOLD=0.600000000000\r\nVERDICT=PASS\r\n",
+        "stderr": "",
+        "duration_ms": 4788.682,
+        "timed_out": false,
+        "workspace": "<TEMP>\\gp-base-deepeval-sweep-issue-3338-original-jqxfnhii\\work",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "b83501aeaf1e5fde6392f3be7e25bac47b9e22a43c86fedfee6d612ed6a2e277",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "82719f5914d6fd472e7eec08cf906b23c0f1427d908cea3418a55e24dec9f61b"
+      },
+      "probe_execution": {
+        "verdict": "FAIL",
+        "exit_code": 1,
+        "stdout": "DEEPEVAL_VERSION=4.2.4\r\nSCORE=0.500000000000\r\nTHRESHOLD=0.600000000000\r\nVERDICT=FAIL\r\n",
+        "stderr": "",
+        "duration_ms": 4709.558,
+        "timed_out": false,
+        "workspace": "<TEMP>\\gp-deepeval-sweep-issue-3338-original-INV-ISSUE_3338_ORIGINAL-41snf2o6\\work",
+        "command": [
+          "python",
+          "evaluator.py"
+        ],
+        "error_message": "",
+        "attempt": 1,
+        "cache_hit": false,
+        "cache_key": "",
+        "stdout_sha256": "c26332a9df9c6e6ca93fa7d92046e46f369e32e827073811b8948c422d52366e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "execution_contract_sha256": "82719f5914d6fd472e7eec08cf906b23c0f1427d908cea3418a55e24dec9f61b"
+      }
+    }
+  ],
+  "notes": [
+    "Passing boundary tests does not prove an evaluator is correct.",
+    "n_probes=1 for task deepeval-sweep-issue-3338-original.",
+    "probe_workers=1.",
+    "execution_slots=1.",
+    "baseline_output_stable=True",
+    "model_provider=disabled"
+  ],
+  "environment": {
+    "graderprobe_version": "0.8.0",
+    "python": "3.13.3",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "seed": 0,
+    "utc": "2026-10-10T17:09:20Z",
+    "task_id": "deepeval-sweep-issue-3338-original",
+    "network_policy": "unrestricted",
+    "inherit_secrets": false,
+    "max_workers": 1,
+    "pid": 14268
+  }
+}

@@ -1,0 +1,88 @@
+[
+  {
+    "case_id": "issue-3338-original",
+    "task_id": "deepeval-sweep-issue-3338-original",
+    "source_sweep_seed": 3338,
+    "base_commit": "d65c8da504ca566d3b9590b798c72b9ab720ce59",
+    "pr_head_commit": "e24bff266a4fc2ab5046c18e8348f130c7d5625f",
+    "expected_order_indices_base": [
+      1,
+      0
+    ],
+    "called_order_indices_base": [
+      0,
+      1
+    ],
+    "base_score": 0.6666666666666666,
+    "base_verdict": "PASS",
+    "base_score_after_reverse": 0.5,
+    "base_verdict_after_reverse": "FAIL",
+    "pr_head_score": 0.6666666666666666,
+    "pr_head_verdict": "PASS",
+    "pr_head_score_after_reverse": 0.6666666666666666,
+    "pr_head_verdict_after_reverse": "PASS",
+    "threshold": 0.6,
+    "asserted_relation": "preserve verdict under expected_tools permutation in unordered non-exact mode",
+    "source_json": "evidence/results/base/base-sweep.json and evidence/results/pr_head/pr-sweep.json",
+    "note": "Derived from actual upstream-source sweep output. Case pack must be run through GraderProbe itself against both exact worktrees to establish the end-to-end result."
+  },
+  {
+    "case_id": "same-name-partial-assignment-3x3",
+    "task_id": "deepeval-sweep-same-name-partial-assignment-3x3",
+    "source_sweep_seed": 3338,
+    "base_commit": "d65c8da504ca566d3b9590b798c72b9ab720ce59",
+    "pr_head_commit": "e24bff266a4fc2ab5046c18e8348f130c7d5625f",
+    "expected_order_indices_base": [
+      2,
+      0,
+      1
+    ],
+    "called_order_indices_base": [
+      0,
+      2,
+      1
+    ],
+    "base_score": 0.6666666666666666,
+    "base_verdict": "PASS",
+    "base_score_after_reverse": 0.5555555555555555,
+    "base_verdict_after_reverse": "FAIL",
+    "pr_head_score": 0.7777777777777778,
+    "pr_head_verdict": "PASS",
+    "pr_head_score_after_reverse": 0.7777777777777778,
+    "pr_head_verdict_after_reverse": "PASS",
+    "threshold": 0.6,
+    "asserted_relation": "preserve verdict under expected_tools permutation in unordered non-exact mode",
+    "source_json": "evidence/results/base/base-sweep.json and evidence/results/pr_head/pr-sweep.json",
+    "note": "Derived from actual upstream-source sweep output. Case pack must be run through GraderProbe itself against both exact worktrees to establish the end-to-end result."
+  },
+  {
+    "case_id": "seed-3338-case-023",
+    "task_id": "deepeval-sweep-seed-3338-case-023",
+    "source_sweep_seed": 3338,
+    "base_commit": "d65c8da504ca566d3b9590b798c72b9ab720ce59",
+    "pr_head_commit": "e24bff266a4fc2ab5046c18e8348f130c7d5625f",
+    "expected_order_indices_base": [
+      3,
+      2,
+      1,
+      0
+    ],
+    "called_order_indices_base": [
+      0,
+      1,
+      2
+    ],
+    "base_score": 0.6666666666666666,
+    "base_verdict": "PASS",
+    "base_score_after_reverse": 0.5833333333333333,
+    "base_verdict_after_reverse": "FAIL",
+    "pr_head_score": 0.6666666666666666,
+    "pr_head_verdict": "PASS",
+    "pr_head_score_after_reverse": 0.6666666666666666,
+    "pr_head_verdict_after_reverse": "PASS",
+    "threshold": 0.6,
+    "asserted_relation": "preserve verdict under expected_tools permutation in unordered non-exact mode",
+    "source_json": "evidence/results/base/base-sweep.json and evidence/results/pr_head/pr-sweep.json",
+    "note": "Derived from actual upstream-source sweep output. Case pack must be run through GraderProbe itself against both exact worktrees to establish the end-to-end result."
+  }
+]

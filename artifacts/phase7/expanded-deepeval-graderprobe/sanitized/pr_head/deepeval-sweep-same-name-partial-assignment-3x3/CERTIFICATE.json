@@ -1,0 +1,38 @@
+{
+  "schema": "graderprobe.certificate.v1",
+  "disclaimer": "This manifest records hashes of artifacts that were executed. It is not a cryptographic proof of evaluator correctness and does not use a novel signature standard.",
+  "created_utc": "2026-10-10T17:10:05Z",
+  "graderprobe_version": "0.8.0",
+  "task_id": "deepeval-sweep-same-name-partial-assignment-3x3",
+  "profile_verdict": "BOUNDARY_OK",
+  "hashes": {
+    "task_tree": {
+      "alternatives/reversed_expected.py": "10d8fad03577fdc9b7ea4342ee88c2c6f994778f8e043996ec1876ed4b717a38",
+      "behavior_validator.py": "9d6002a12f8fd891c92997b1bb41dc0662f153802e4d61d2c81a350cbdf5485e",
+      "evaluator.py": "2c6ca5d1199f01981c0cfd1dca05fcfdadd6ffc85738877a701245cbefb27f95",
+      "solution.py": "2f99e1b50de4457ad2bb3d412e70bbd7265745e5f97c5db6b2946e67b755921e",
+      "SWEEP_CASE_EVIDENCE.json": "843c62473e17cc7223c189dcdee781cbe690d2b2ef14c2507c0d3dee3c6c027f",
+      "task.yaml": "a3b98851e7eb2c3c4f6cf39b7b1108611c66cdf15260617d77e57287a65b00b8"
+    },
+    "task_tree_digest": "446fd0f324c77e5510c26df5474e03d6f60d241c7cb1cf2e3024c367d8552456",
+    "task_id": "b2db24377a9fa09987fbc87a2caf3aa1286268a5c078c958342b1c1063a339ea",
+    "evaluator_contract": "82719f5914d6fd472e7eec08cf906b23c0f1427d908cea3418a55e24dec9f61b",
+    "behavior_validator_contract": "7345af08c6a0f4350dd57354df105d518c5daf6aeb968689e9efd114641c3809",
+    "probe_ids": "284d317b5099b593d38c17ae022ccbe730a0d550f9221d1c5a8ab16f567d8d2b",
+    "probe_catalog": "924d08053df117106a77aa162e6fedb6aec9e886efb75e1e9588ed9093321ecb",
+    "result": "abe06c28fd0db83421f3dff68ed17990460d1fe8f30290cbce9d70546a07da0d",
+    "environment": "b63ffa9c9a50ff82e1a17b349e54e84e8079d99f4c84909ca6ce7e36a54b8ed7"
+  },
+  "environment": {
+    "graderprobe_version": "0.8.0",
+    "python": "3.13.3",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "seed": 0,
+    "utc": "2026-10-10T17:10:01Z",
+    "task_id": "deepeval-sweep-same-name-partial-assignment-3x3",
+    "network_policy": "unrestricted",
+    "inherit_secrets": false,
+    "max_workers": 1,
+    "pid": 13236
+  }
+}

@@ -1,0 +1,63 @@
+id: deepeval-sweep-seed-3338-case-023
+title: 'DeepEval sweep case: seed-3338-case-023'
+description: Replay actual DeepEval source-sweep case seed-3338-case-023; baseline
+  ordering crosses threshold 0.60 while reversing expected tools must preserve verdict
+  in unordered non-exact mode.
+failure_mode: Order-sensitive score assignment in ToolCorrectnessMetric when should_consider_ordering=False
+  and should_exact_match=False.
+requirements:
+- Use the real DeepEval source checkout selected by PYTHONPATH; do not replace the
+  metric with a simulation.
+- Run without provider API requests; ToolCallParams.INPUT_PARAMETERS is deterministic.
+- Reversing EXPECTED while keeping CALLED fixed must preserve score/verdict under
+  unordered non-exact semantics.
+constraints:
+- The selected baseline was selected from the recorded deterministic sweep and has
+  PASS at threshold 0.60.
+- The behavioral oracle calculates maximum bipartite assignment independently and
+  checks order invariance; it is not an external maintainer verdict.
+- Do not change threshold or the test input to force the desired outcome.
+candidate_file: solution.py
+baseline_repeats: 1
+oracle:
+  reference: solution.py
+  expected_behavior: score and verdict invariant under expected_tools order in unordered
+    non-exact mode
+  expected_baseline_verdict: PASS
+evaluator:
+  command:
+  - python
+  - evaluator.py
+  timeout_seconds: 45
+  environment:
+    OPENAI_API_KEY: graderprobe-offline-dummy-no-calls
+    DEEPEVAL_DISABLE_DOTENV: '1'
+    DEEPEVAL_TELEMETRY_OPT_OUT: 'YES'
+behavior_validator:
+  command:
+  - python
+  - behavior_validator.py
+  timeout_seconds: 20
+  environment:
+    DEEPEVAL_DISABLE_DOTENV: '1'
+    DEEPEVAL_TELEMETRY_OPT_OUT: 'YES'
+probes:
+  invariance:
+  - id: INV-SEED_3338_CASE_023
+    description: Reverse expected tool order while preserving the same unordered expected
+      multiset and the called trajectory.
+    target: solution.py
+    expected_relation: preserve
+    transform:
+      kind: replace_file
+      source: alternatives/reversed_expected.py
+provenance:
+  source_project: DeepEval
+  source_repository: https://github.com/confident-ai/deepeval
+  source_issue: https://github.com/confident-ai/deepeval/issues/3338
+  source_pull_request: https://github.com/confident-ai/deepeval/pull/3339
+  base_commit: d65c8da504ca566d3b9590b798c72b9ab720ce59
+  pr_head_commit: e24bff266a4fc2ab5046c18e8348f130c7d5625f
+  source_sweep_seed: 3338
+  external_validation_status: local upstream-source sweep; GraderProbe end-to-end
+    re-run pending

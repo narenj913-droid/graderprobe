@@ -1,0 +1,63 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\pytest.exe -q D:\deepeval_sweep_workspace\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py
+CWD: D:\deepeval_sweep_workspace\worktree_base
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_base
+EXIT_CODE: 1
+ELAPSED_SEC: 4.971
+
+--- STDOUT ---
+.......FF..F                                                             [100%]Running teardown with pytest sessionfinish...
+
+================================== FAILURES ===================================
+_ TestToolCorrectnessMetricAssignment.test_score_does_not_depend_on_expected_order _
+
+self = <test_tool_correctness_metric.TestToolCorrectnessMetricAssignment object at 0x0000019FC6D2EAD0>
+
+    def test_score_does_not_depend_on_expected_order(self):
+        forward = _measure(self.EXPECTED, self.CALLED)
+        reverse = _measure(self.EXPECTED[::-1], self.CALLED)
+>       assert forward == pytest.approx(reverse)
+E       assert 0.5 == 0.6666666666666666 ± 6.7e-07
+E         
+E         comparison failed
+E         Obtained: 0.5
+E         Expected: 0.6666666666666666 ± 6.7e-07
+
+..\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py:170: AssertionError
+__ TestToolCorrectnessMetricAssignment.test_partial_credit_uses_best_pairing __
+
+self = <test_tool_correctness_metric.TestToolCorrectnessMetricAssignment object at 0x0000019FC6D2ED50>
+
+    def test_partial_credit_uses_best_pairing(self):
+        # Best pairing: expected[1] -> called[0] (3/3), expected[0] ->
+        # called[1] (1/3). Greedy took expected[0] -> called[0] (2/3) and left
+        # expected[1] with called[1] (1/3), scoring 0.5.
+>       assert _measure(self.EXPECTED, self.CALLED) == pytest.approx(2 / 3)
+E       assert 0.5 == 0.6666666666666666 ± 6.7e-07
+E         
+E         comparison failed
+E         Obtained: 0.5
+E         Expected: 0.6666666666666666 ± 6.7e-07
+
+..\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py:176: AssertionError
+_____ TestToolCorrectnessMetricAssignment.test_fewer_calls_than_expected ______
+
+self = <test_tool_correctness_metric.TestToolCorrectnessMetricAssignment object at 0x0000019FC6DE1A30>
+
+    def test_fewer_calls_than_expected(self):
+>       assert _measure(self.EXPECTED, [_book(a=1, b=1, c=2)]) == pytest.approx(
+            0.5
+        )
+E       assert 0.3333333333333333 == 0.5 ± 5.0e-07
+E         
+E         comparison failed
+E         Obtained: 0.3333333333333333
+E         Expected: 0.5 ± 5.0e-07
+
+..\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py:188: AssertionError
+=========================== short test summary info ===========================
+FAILED ..\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_score_does_not_depend_on_expected_order
+FAILED ..\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_partial_credit_uses_best_pairing
+FAILED ..\worktree_pr\tests\test_metrics\test_tool_correctness_metric.py::TestToolCorrectnessMetricAssignment::test_fewer_calls_than_expected
+3 failed, 9 passed in 0.59s
+
+--- STDERR ---

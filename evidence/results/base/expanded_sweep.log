@@ -1,0 +1,20 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\python.exe D:\deepeval_sweep_workspace\pack\DeepEval_Expanded_Actual_Code_Test_Pack\tools\expanded_tool_correctness_sweep.py --revision base-d65c8da --output D:\deepeval_sweep_workspace\deliverable\results\base\base-sweep.json --random-cases 120 --seed 3338
+CWD: D:\deepeval_sweep_workspace\worktree_base
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_base
+EXIT_CODE: 0
+ELAPSED_SEC: 8.457
+
+--- STDOUT ---
+{
+  "revision_label": "base-d65c8da",
+  "deepeval_version": "4.2.4",
+  "case_count": 126,
+  "measurements": 1695,
+  "unordered_invariance_failures": 10,
+  "unexpected_exceptions": 0,
+  "order_sensitive_control_passed": true,
+  "elapsed_seconds": 6.653,
+  "report": "D:\\deepeval_sweep_workspace\\deliverable\\results\\base\\base-sweep.json"
+}
+
+--- STDERR ---

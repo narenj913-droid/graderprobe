@@ -1,0 +1,12 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\pytest.exe -q D:\deepeval_sweep_workspace\worktree_pr\tests\test_core\test_imports.py
+CWD: D:\deepeval_sweep_workspace\worktree_pr
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_pr
+EXIT_CODE: 0
+ELAPSED_SEC: 4.727
+
+--- STDOUT ---
+...............                                                          [100%]Running teardown with pytest sessionfinish...
+
+15 passed in 1.39s
+
+--- STDERR ---

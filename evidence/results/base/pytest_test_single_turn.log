@@ -1,0 +1,46 @@
+COMMAND: D:\deepeval_sweep_workspace\venv\Scripts\pytest.exe -q D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py
+CWD: D:\deepeval_sweep_workspace\worktree_base
+ENV_PYTHONPATH: D:\deepeval_sweep_workspace\worktree_base
+EXIT_CODE: 0
+ELAPSED_SEC: 5.547
+
+--- STDOUT ---
+.......................................                                  [100%]Running teardown with pytest sessionfinish...
+
+============================== warnings summary ===============================
+tests/test_core/test_test_case/test_single_turn.py::TestLLMTestCaseInitialization::test_minimal_initialization
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:26: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert test_case.additional_metadata is None
+
+tests/test_core/test_test_case/test_single_turn.py::TestLLMTestCaseInitialization::test_full_initialization
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:88: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert test_case.additional_metadata == {
+
+tests/test_core/test_test_case/test_single_turn.py::TestLLMTestCaseCamelCaseInitialization::test_camelcase_field_initialization
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:159: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert test_case.additional_metadata == metadata_dict
+
+tests/test_core/test_test_case/test_single_turn.py::TestLLMTestCaseCamelCaseInitialization::test_mixed_case_initialization
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:198: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert test_case.additional_metadata == metadata_dict
+
+tests/test_core/test_test_case/test_single_turn.py::TestSerialization::test_metadata_serialization
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:672: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert test_case.additional_metadata == metadata
+
+tests/test_core/test_test_case/test_single_turn.py::TestSerialization::test_additional_metadata_input_compatibility
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:687: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert snake_case.additional_metadata == metadata
+
+tests/test_core/test_test_case/test_single_turn.py::TestSerialization::test_additional_metadata_input_compatibility
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:688: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert camel_case.additional_metadata == metadata
+
+tests/test_core/test_test_case/test_single_turn.py::TestIntegrationScenarios::test_rag_evaluation_scenario
+  D:\deepeval_sweep_workspace\worktree_base\tests\test_core\test_test_case\test_single_turn.py:828: DeprecationWarning: 'additional_metadata' is deprecated. Use 'metadata' instead.
+    assert test_case.additional_metadata["retrieval_score"] == 0.85
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+39 passed, 8 warnings in 2.22s
+
+--- STDERR ---

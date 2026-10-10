@@ -1,0 +1,30 @@
+{
+  "config": {
+    "baseline_repeats_override": null,
+    "execution_slots": 1,
+    "include_auto_probes": false,
+    "include_auto_sensitivity": false,
+    "include_model_probes": false,
+    "inherit_secrets": false,
+    "max_minimization_runs": 12,
+    "max_model_proposals": 3,
+    "max_workers": 1,
+    "memoize_minimization": true,
+    "minimize_counterfactuals": false,
+    "seed": 0,
+    "validate_behavior": true,
+    "validate_behavior_all": false,
+    "validate_invariance_behavior": true
+  },
+  "graderprobe_version": "0.8.0",
+  "model_probes": [],
+  "outcome_fingerprint": "e10fad9628d8bcc7883a0f98b4ad0e8e3cec34f3572a4c1297bdf06e7f669482",
+  "profile_path": "<RAW_OUTPUT_DIR>\\pr_head\\deepeval-sweep-same-name-partial-assignment-3x3\\profile.json",
+  "profile_sha256": "abe06c28fd0db83421f3dff68ed17990460d1fe8f30290cbce9d70546a07da0d",
+  "schema": "graderprobe.replay_bundle.v1",
+  "source_root": "<GRADERPROBE_REPO>\\corpus\\expanded-deepeval-3338\\same-name-partial-assignment-3x3",
+  "source_tree_digest": "446fd0f324c77e5510c26df5474e03d6f60d241c7cb1cf2e3024c367d8552456",
+  "task_file": "<GRADERPROBE_REPO>\\corpus\\expanded-deepeval-3338\\same-name-partial-assignment-3x3\\task.yaml",
+  "task_file_sha256": "a3b98851e7eb2c3c4f6cf39b7b1108611c66cdf15260617d77e57287a65b00b8",
+  "task_id": "deepeval-sweep-same-name-partial-assignment-3x3"
+}
