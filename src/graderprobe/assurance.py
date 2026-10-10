@@ -167,14 +167,18 @@ def classify_change(path: str) -> str:
     p = PurePosixPath(path)
     name = p.name.lower()
     parts = {item.lower() for item in p.parts}
+    if parts & {"docs", "evidence", "artifacts"}:
+        return "other"
+    if parts & {"tools", "scripts", ".github", "workflow"}:
+        return "maintainer_workflow"
+    if name in {"graderprobe.lock.json"} or name.endswith(".lock.json") or name.endswith(".lock"):
+        return "maintainer_workflow"
     if name in {"task.yaml", "task.yml", "instruction.md"}:
         return "task_contract"
     if "solution" in parts or "reference" in parts or "gold" in parts:
         return "reference_solution"
     if "environment" in parts or "environments" in parts or name in {"dockerfile", "compose.yaml", "docker-compose.yaml"}:
         return "environment"
-    if name in {"graderprobe.lock.json"} or name.endswith(".lock.json") or name.endswith(".lock"):
-        return "maintainer_workflow"
     if (
         "tests" in parts
         or "graders" in parts
@@ -187,8 +191,6 @@ def classify_change(path: str) -> str:
         return "evaluator"
     if "probe" in name or "probes" in parts:
         return "probe_definition"
-    if "workflow" in parts or ".github" in parts:
-        return "maintainer_workflow"
     return "other"
 
 
@@ -218,12 +220,13 @@ def release_assurance(
         raise ValueError(f"task root does not exist: {task_root}")
     config = config or RunConfig()
     manifest = changed_file_manifest(root, base_ref=base_ref, head_ref=head_ref)
-    head_tasks = _changed_task_files(root, manifest)
+    head_tasks = [t for t in _changed_task_files(root, manifest) if _path_is_within(t, task_root)]
     global_categories = sorted({
         item.category
         for item in manifest
         if item.category in {"evaluator", "environment", "task_contract", "reference_solution", "probe_definition"}
         and not _path_is_within(root / item.path, task_root)
+        and not _path_is_within(root / item.path, root / "corpus")
     })
     global_fanout = bool(global_categories)
     all_head_tasks = sorted(task_root.rglob("task.yaml")) if global_fanout else head_tasks
