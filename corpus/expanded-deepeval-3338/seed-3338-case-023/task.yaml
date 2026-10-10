@@ -59,5 +59,4 @@ provenance:
   base_commit: d65c8da504ca566d3b9590b798c72b9ab720ce59
   pr_head_commit: e24bff266a4fc2ab5046c18e8348f130c7d5625f
   source_sweep_seed: 3338
-  external_validation_status: local upstream-source sweep; GraderProbe end-to-end
-    re-run pending
+  external_validation_status: local GraderProbe end-to-end rerun completed against the pinned base and PR-head worktrees; no third-party or maintainer validation/endorsement is claimed
