@@ -173,6 +173,8 @@ def classify_change(path: str) -> str:
         return "reference_solution"
     if "environment" in parts or "environments" in parts or name in {"dockerfile", "compose.yaml", "docker-compose.yaml"}:
         return "environment"
+    if name in {"graderprobe.lock.json"} or name.endswith(".lock.json") or name.endswith(".lock"):
+        return "maintainer_workflow"
     if (
         "tests" in parts
         or "graders" in parts

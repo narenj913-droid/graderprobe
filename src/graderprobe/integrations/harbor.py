@@ -7,7 +7,13 @@ and emits a portable bridge manifest.
 from __future__ import annotations
 
 import json
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:
+    try:
+        import tomli as tomllib  # type: ignore
+    except ModuleNotFoundError:
+        tomllib = None  # type: ignore
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -48,6 +54,8 @@ def inspect_harbor_task(path: str | Path) -> HarborTaskManifest:
     warnings: list[str] = []
     if not toml_path.is_file():
         raise ValueError(f"Harbor task.toml not found: {toml_path}")
+    if tomllib is None:
+        raise RuntimeError("Parsing TOML on Python < 3.11 requires tomli; please install tomli or run under Python 3.11+")
     raw = tomllib.loads(toml_path.read_text(encoding="utf-8"))
     task_cfg = raw.get("task") or {}
     metadata = raw.get("metadata") or {}

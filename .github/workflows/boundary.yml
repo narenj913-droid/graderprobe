@@ -36,6 +36,10 @@ jobs:
           graderprobe audit corpus/tasks --changed-only --base-ref "$BASE" --out graderprobe-out/audit --sarif-out graderprobe-out/audit/results.sarif --auto --auto-sensitive
           rc=$?
           set -e
+          if [ "$rc" -eq 64 ]; then
+            echo "No changed task.yaml files to audit relative to $BASE"
+            exit 0
+          fi
           if [ -f graderprobe-out/audit/results.sarif ]; then echo "SARIF ready"; fi
           exit "$rc"
       - name: Selected task boundary audit

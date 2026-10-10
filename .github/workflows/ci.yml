@@ -13,6 +13,7 @@ jobs:
   fast:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12", "3.13"]
     steps:
@@ -22,9 +23,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           python -m pip install -e .
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          echo "$(python -c 'import sysconfig; print(sysconfig.get_path("scripts"))')" >> $GITHUB_PATH
       - name: Fast deterministic tests
         run: |
           python -m unittest -q \
@@ -38,6 +39,7 @@ jobs:
       - name: CLI smoke
         run: |
           python -m graderprobe --version
+          python -m graderprobe --help >/dev/null
           graderprobe --version
           graderprobe --help >/dev/null
 
