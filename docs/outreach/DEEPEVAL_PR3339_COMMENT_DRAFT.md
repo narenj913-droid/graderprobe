@@ -11,7 +11,7 @@
 ```markdown
 Hi @twilson63 and maintainers,
 
-I ran an independent, offline before/after validation of this PR against base commit `d65c8da` to verify whether the order-independence property holds universally across all multiset permutations for `ToolCorrectnessMetric`.
+I ran an independent, offline before/after validation of this PR against base commit `d65c8da` to verify whether the order-independence property holds across all 4 permutations reported in Issue #3338 for `ToolCorrectnessMetric`.
 
 ### 1. Full Permutation Matrix (Issue #3338 reproduction inputs)
 Testing all 4 ordering combinations of 2 expected calls and 2 called calls (threshold = 0.60):
@@ -24,10 +24,10 @@ Testing all 4 ordering combinations of 2 expected calls and 2 called calls (thre
 | `expected[1, 0]`, `called[1, 0]` | 0.666667 | PASS | 0.666667 | PASS |
 
 - **Base `d65c8da`**: Order-sensitive (`is_order_invariant: false`). The score flipped between 0.50 and 0.667 depending on tool sequence, causing a false rejection on semantically identical unordered calls.
-- **PR #3339 head `e24bff2`**: Fully order-invariant (`is_order_invariant: true`). All permutations consistently evaluate to 0.666667 (PASS).
+- **PR #3339 head `e24bff2`**: Fully order-invariant across all 4 reported permutations (`is_order_invariant: true`). All 4 permutations consistently evaluate to 0.666667 (PASS).
 
 ### 2. Unit Test Attribution (`TestToolCorrectnessMetricAssignment`)
-Running the 5 newly added tests in `tests/test_tool_correctness_metric.py`:
+Running the 5 newly added tests in `tests/test_metrics/test_tool_correctness_metric.py`:
 - On PR #3339 head (`e24bff2`): **5 passed** (2.40s)
 - On base commit (`d65c8da`): **3 failed, 2 passed** (2.77s)
   - `test_unordered_pairing_is_order_independent_when_multiple_calls_share_name` (FAIL on base)
