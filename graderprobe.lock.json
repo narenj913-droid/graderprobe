@@ -11,10 +11,10 @@
       "task_path": "corpus/tasks/ambiguous-requirement/task.yaml"
     }
   ],
-  "created_at": "2026-10-09T22:37:26Z",
+  "created_at": "2026-10-10T00:34:03Z",
   "graderprobe_version": "0.8.0",
-  "lock_fingerprint": "sha256:93dedc3699345ea7b5dce0cebc06a58ab925332fe8c07efdc1df831acf7289e3",
-  "locked_commit": "f629405c784dbf42e1662a4900eb1caddff818e5",
+  "lock_fingerprint": "sha256:3f5a4dc1b75352c9feebc9e9a16918941c36a2c12a6c5b3ddf788ecf02e7d05e",
+  "locked_commit": "9e81d06ce5971407b1367618be0dc46b223fe8cb",
   "repository": ".",
   "schema": "graderprobe.contract_lock.v1",
   "task_inventory": [
